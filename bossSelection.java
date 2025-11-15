@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Project3_6713249;
 
 import java.awt.Dimension;
@@ -15,10 +12,6 @@ import java.awt.event.ItemEvent;
 import javax.swing.ButtonGroup;
 
 
-/**
- *
- * @author sawan
- */
 public class bossSelection extends SelectionDialog {
     protected JLabel Boss1, Boss2, Boss3;
     private menuButtonLabel fightButton;
@@ -49,7 +42,7 @@ public class bossSelection extends SelectionDialog {
         jRadioButton2 = new JRadioButton("Neck");
         jRadioButton3 = new JRadioButton("Hurt");
 
-        // Make backgrounds transparent
+      
         for (JRadioButton rb : new JRadioButton[]{jRadioButton1, jRadioButton2, jRadioButton3}) {
             rb.setOpaque(false);
             rb.setContentAreaFilled(false);
@@ -180,3 +173,4 @@ public class bossSelection extends SelectionDialog {
     }
 
 }
+
