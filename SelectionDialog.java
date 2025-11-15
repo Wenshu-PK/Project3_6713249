@@ -14,7 +14,6 @@ public class SelectionDialog extends JDialog {
     protected JLabel contentpane;
     protected mainFrame parentFrame;
 
-    // shared layout values for all selection dialogs
     protected int margin = 60;
     protected int charSize = 300;
     protected int charY = 100;
@@ -25,10 +24,8 @@ public class SelectionDialog extends JDialog {
     protected int char1X = char2X - spacing - charSize;
     protected int char3X = char2X + charSize + spacing;
 
-    // shared radio buttons
     protected JRadioButton jRadioButton1, jRadioButton2, jRadioButton3;
 
-    // shared return button
     protected menuButtonLabel returnButton;
 
     public SelectionDialog(String bg_path, String name, mainFrame owner) {
@@ -38,7 +35,7 @@ public class SelectionDialog extends JDialog {
         setSize(frameWidth, frameHeight);
         setLocationRelativeTo(null);
 
-        // background label as content pane
+
         contentpane = new JLabel();
         contentpane.setLayout(null);
         MyImageIcon background = new MyImageIcon(bg_path);
@@ -46,3 +43,4 @@ public class SelectionDialog extends JDialog {
         setContentPane(contentpane);
     }
 }
+
