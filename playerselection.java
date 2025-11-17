@@ -9,7 +9,10 @@ import javax.swing.JRadioButton;
 import java.awt.event.ItemEvent;
 import java.awt.Font;
 
-
+/**
+ *
+ * @author sawan
+ */
 public class playerselection extends SelectionDialog {
 
     protected JLabel char1, char2, char3;
@@ -19,7 +22,7 @@ public class playerselection extends SelectionDialog {
         super(bg_path, name, owner);
         playerselection pervious = this;
 
-       
+        // === sizes & positions ===
         char1 = new JLabel();
         char1.setIcon(new MyImageIcon(constants.PLAYER_1).resize(charSize, charSize));
         char1.setBounds(char1X, charY, charSize, charSize);
@@ -32,11 +35,12 @@ public class playerselection extends SelectionDialog {
         char3.setIcon(new MyImageIcon(constants.PLAYER_3).resize(charSize, charSize));
         char3.setBounds(char3X, charY, charSize, charSize);
 
-     
+        // === radio buttons (centered under each character) ===
         jRadioButton1 = new JRadioButton("Player 1");
         jRadioButton2 = new JRadioButton("Player 2");
         jRadioButton3 = new JRadioButton("Player 3");
 
+        // transparent background for radios
         for (JRadioButton rb : new JRadioButton[]{jRadioButton1, jRadioButton2, jRadioButton3}) {
             rb.setOpaque(false);
             rb.setContentAreaFilled(false);
@@ -51,7 +55,7 @@ public class playerselection extends SelectionDialog {
         Dimension rb2Size = jRadioButton2.getPreferredSize();
         Dimension rb3Size = jRadioButton3.getPreferredSize();
 
-       
+        // center each radio under its character (x + (charSize - rbWidth)/2)
         jRadioButton1.setBounds(
                 char1X + (charSize - rb1Size.width) / 2,
                 radioY,
@@ -73,6 +77,7 @@ public class playerselection extends SelectionDialog {
                 rb3Size.height
         );
 
+        // hover effect for characters when radio selected
         jRadioButton1.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 char1.setIcon(new MyImageIcon(constants.PLAYER_1_HOVER).resize(charSize, charSize));
@@ -102,7 +107,7 @@ public class playerselection extends SelectionDialog {
         jRadioButton2.setFont(radioFont);
         jRadioButton3.setFont(radioFont);
 
-       
+        // === buttons ===
         returnButton = new menuButtonLabel(constants.RETURNBUTTON, constants.RETURNBUTTON_HOVER, 200, 75, owner);
         returnButton.setInitialLocation(margin, constants.frameHeight - 75 - margin);
         returnButton.addMouseListener(new MouseAdapter() {
@@ -173,4 +178,3 @@ public class playerselection extends SelectionDialog {
     }
 
 }
-
