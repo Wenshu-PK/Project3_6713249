@@ -12,6 +12,8 @@ import java.awt.event.ItemEvent;
 import javax.swing.ButtonGroup;
 
 
+
+ 
 public class bossSelection extends SelectionDialog {
     protected JLabel Boss1, Boss2, Boss3;
     private menuButtonLabel fightButton;
@@ -42,7 +44,7 @@ public class bossSelection extends SelectionDialog {
         jRadioButton2 = new JRadioButton("Neck");
         jRadioButton3 = new JRadioButton("Hurt");
 
-      
+        // Make backgrounds transparent
         for (JRadioButton rb : new JRadioButton[]{jRadioButton1, jRadioButton2, jRadioButton3}) {
             rb.setOpaque(false);
             rb.setContentAreaFilled(false);
@@ -107,7 +109,7 @@ public class bossSelection extends SelectionDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Clicked: return");
-                owner.setVisible(true);
+                prevois.setVisible(true);
                 dispose();
             }
 
@@ -139,7 +141,7 @@ public class bossSelection extends SelectionDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                // new bossfight(...,owner,player_selected);
+                // new bossfight(...,owner,player_selected,Difficulty.getSelectedIndex());
                 //dispose();
             }
 
@@ -159,7 +161,7 @@ public class bossSelection extends SelectionDialog {
         Difficulty = new JComboBox(difficulty);
         Difficulty.setFont(new Font("Arial", Font.PLAIN, 18));
         Difficulty.setBounds(comboX, comboY, comboWidth, comboHeight);
-
+      
         contentpane.add(returnButton);
         contentpane.add(fightButton);
         contentpane.add(Difficulty);
@@ -173,4 +175,3 @@ public class bossSelection extends SelectionDialog {
     }
 
 }
-
