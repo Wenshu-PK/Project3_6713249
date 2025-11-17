@@ -27,14 +27,14 @@ interface constants {
     static final String PLAYER_3 = PATH + "S1player3.png";
     static final String PLAYER_3_HOVER = PATH + "C1S1player3.png";
 
-    static final String BOSS_BG = PATH + "BG_Select_Boss_1.png";
+    static final String BOSS_BG = PATH + "BG_Select_Boss.png";
 
     static final String BOSS1 = PATH + "S1Boss1.png";
-    static final String BOSS1_HOVER = PATH + "C1S1Boss1.png";
-    static final String BOSS2 = PATH + "Boss1.png";
-    static final String BOSS2_HOVER = PATH + "C1S1Boss1.png";
-    static final String BOSS3 = PATH + "Boss1.png";
-    static final String BOSS3_HOVER = PATH + "C1S1Boss1.png";
+    static final String BOSS1_HOVER = PATH + "C1S1Boss.png";
+    static final String BOSS2 = PATH + "S1Boss2.png";
+    static final String BOSS2_HOVER = PATH + "C1S1Boss2.png";
+    static final String BOSS3 = PATH + "S1Boss3.png";
+    static final String BOSS3_HOVER = PATH + "C1S1Boss3.png";
 
     static final String RETURNBUTTON = PATH + "Return.png";
     static final String RETURNBUTTON_HOVER = PATH + "C1Return.png";
@@ -44,7 +44,19 @@ interface constants {
 
     static final String FIGHTBUTTON = PATH + "fight.png";
     static final String FIGHTBUTTON_HOVER = PATH + "C1fight.png";
-
+    
+    static final String CREDITBUTTON = PATH + "credit.png";
+    static final String CREDITBUTTON_HOVER = PATH + "C1credit.png";
+    
+    static final String HOWTOBUTTON = PATH + "How to play.png";
+    static final String HOWTOBUTTON_HOVER = PATH + "C1How to play.png";
+    static final String HOWTOPLAT_BG = PATH + "BG_how_to_play.gif";
+    
+    static final String OKBUTTON = PATH + "OK.png";
+    static final String OKBUTTON_HOVER = PATH + "C1OK.png";
+    
+    static final String CREDIT = PATH + "BG_Credits.jpg";
+    
     static final int frameWidth = 1188;
     static final int frameHeight = 668;
 
