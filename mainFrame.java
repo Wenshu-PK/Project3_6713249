@@ -11,11 +11,11 @@ public class mainFrame extends JFrame {
     private menuButtonLabel startButton, settingButton, exitButton, creditButton, howbutton;
     private bossSelection boss;
     private playerselection player;
-    private final int BUTTON_WIDTH = 200;
-    private final int BUTTON_HEIGHT = 75;
-    private final int SPACING_X = 40;
-    private final int SPACING_Y = 20;
-    private final int ROW1_Y = 300;
+    private final int BUTTON_WIDTH = 150;
+    private final int BUTTON_HEIGHT = 60;
+    private final int SPACING_X = 100;
+    private final int SPACING_Y = 30;
+    private final int ROW1_Y = 380;
 
     public mainFrame() {
         int centerX = (constants.frameWidth - BUTTON_WIDTH) / 2;
@@ -42,7 +42,7 @@ public class mainFrame extends JFrame {
         contentpane.setIcon(background);
         contentpane.setLayout(null);
       
-        startButton = new menuButtonLabel(constants.STARTBUTTON, constants.STARTBUTTON_HOVER, 200, 75, this);
+        startButton = new menuButtonLabel(constants.STARTBUTTON, constants.STARTBUTTON_HOVER, BUTTON_WIDTH, BUTTON_HEIGHT, this);
         startButton.setInitialLocation(centerX, row1Y);
         startButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -68,7 +68,7 @@ public class mainFrame extends JFrame {
             }
         });
 
-        settingButton = new menuButtonLabel(constants.SETTINGBUTTON, constants.SETTINGBUTTON_HOVER, 200, 75, this);
+        settingButton = new menuButtonLabel(constants.SETTINGBUTTON, constants.SETTINGBUTTON_HOVER, BUTTON_WIDTH, BUTTON_HEIGHT, this);
         settingButton.setInitialLocation(leftX, row2Y);
         settingButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -90,7 +90,7 @@ public class mainFrame extends JFrame {
             }
         });
 
-        exitButton = new menuButtonLabel(constants.EXITBUTTON, constants.EXITBUTTON_HOVER, 200, 75, this);
+        exitButton = new menuButtonLabel(constants.EXITBUTTON, constants.EXITBUTTON_HOVER, BUTTON_WIDTH, BUTTON_HEIGHT, this);
         exitButton.setInitialLocation(rightX, row3Y);   // [ Exit    ]
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -111,12 +111,14 @@ public class mainFrame extends JFrame {
             }
         });
 
-        creditButton = new menuButtonLabel(constants.EXITBUTTON, constants.EXITBUTTON_HOVER, 200, 75, this);
+        creditButton = new menuButtonLabel(constants.CREDITBUTTON, constants.CREDITBUTTON_HOVER, BUTTON_WIDTH, BUTTON_HEIGHT, this);
         creditButton.setInitialLocation(leftX, row3Y);   // [ Credit  
         creditButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Clicked: credit");
+                setVisible(false);
+                new creditDialog(constants.CREDIT,"Credit",menuframe);
 
             }
 
@@ -131,12 +133,15 @@ public class mainFrame extends JFrame {
             }
         });
 
-        howbutton = new menuButtonLabel(constants.EXITBUTTON, constants.EXITBUTTON_HOVER, 200, 75, this);
+        howbutton = new menuButtonLabel(constants.HOWTOBUTTON, constants.HOWTOBUTTON_HOVER, BUTTON_WIDTH, BUTTON_HEIGHT, this);
         howbutton.setInitialLocation(rightX, row2Y);
         howbutton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Clicked: how to play");
+                setVisible(false);
+                new howtoplayDialog(constants.HOWTOPLAT_BG,"HOw to play",menuframe);
+                
 
             }
 
