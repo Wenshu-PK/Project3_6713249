@@ -16,7 +16,11 @@ public class mainFrame extends JFrame {
     private final int SPACING_X = 100;
     private final int SPACING_Y = 30;
     private final int ROW1_Y = 380;
-
+    
+    // [Max] Added sound management variables to handle background music and volume state globally.
+    private MySoundEffect currentThemeSound;
+    private int currentVolume = 50; // [Max] Default volume set to 50.
+    
     public mainFrame() {
         int centerX = (constants.frameWidth - BUTTON_WIDTH) / 2;
         int row1Y = ROW1_Y;
@@ -75,6 +79,11 @@ public class mainFrame extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Clicked: setting");
 
+                // [Max] Modified logic: Removed setVisible(false) to keep the main menu visible in the background.
+                // setVisible(false);  <-- [Max] Commented out or removed.
+       
+                // [Max] Added instantiation of settingDialog as a modal popup on top of the menu.
+                new settingDialog(constants.SETTING_BG, "Settings", menuframe);
             }
 
             @Override
@@ -161,7 +170,37 @@ public class mainFrame extends JFrame {
         contentpane.add(exitButton);
         contentpane.add(creditButton);
         contentpane.add(howbutton);
+       
+        // [Max] Added line to start playing the default theme song immediately when the menu loads.
+        playTheme(constants.SONG_TITANIUM);
 
     }
-
+    
+    // [Max] Added method to switch background music dynamically (called from SettingDialog).
+    public void playTheme(String filePath) {
+        if (currentThemeSound != null) {
+            currentThemeSound.stop(); // [Max] Stops the previous song before playing a new one.
+        }
+       
+        if (filePath != null) {
+            currentThemeSound = new MySoundEffect(filePath);
+            currentThemeSound.setVolume(currentVolume); // [Max] Ensures new song plays at the current volume level.
+            currentThemeSound.playLoop();
+        }
+    }
+    
+    // [Max] Added method to update volume globally (called from SettingDialog's slider).
+    public void setVolume(int volume) {
+        this.currentVolume = volume;
+        if (currentThemeSound != null) {
+            currentThemeSound.setVolume(volume);
+        }
+    }
+    
+    // [Max] Added getter for volume so the slider in SettingDialog knows the initial position.
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+    
+    // ... (Other parts of mainFrame) ..
 }

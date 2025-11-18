@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 interface constants {
 
     static final String PATH = "src/main/java/Project3_6713249/imageP/";
+    
     //static final String MENU_BG = PATH + "BACKGROUND.png";
     //static final String MENU_BG_MP4 = PATH + "BACKGROUND_MP4.mp4";
     static final String MENU_BG_GIF = PATH + "Background1.gif";
@@ -59,7 +60,17 @@ interface constants {
     
     static final int frameWidth = 1188;
     static final int frameHeight = 668;
-
+    
+    // [Max] Added specific path for sound files to separate them from images.
+    static final String SOUND_PATH = "src/main/java/Project3_6713249/soundP/";
+    
+    // [Max] Added constants for the selectable music tracks.
+    static final String SONG_TITANIUM       = SOUND_PATH + "titanium.wav";
+    static final String SONG_CREATIVE       = SOUND_PATH + "creative.wav";
+    static final String SONG_EONA           = SOUND_PATH + "eona.wav";
+    
+    // [Max] Added constant for the Settings dialog background image.
+    static final String SETTING_BG          = PATH + "BG_setting.png"; 
 }
 
 class MyImageIcon extends ImageIcon {
