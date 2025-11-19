@@ -10,7 +10,7 @@ import javax.sound.sampled.*;
 //  [Max] Kept MyConstants interface here for future use/reference, 
 //  even though main logic might use 'constants' from Utilities.java.
 // ==========================================
-interface MyConstants
+/*interface MyConstants
 {
     static final String PATH       = "src/main/java/Project3_6713249/imageP/";
     // [Max] Resource Sound Paths
@@ -48,7 +48,7 @@ interface MyConstants
     static final int ITEM_WIDTH    = 40;
     static final int ITEM_HEIGHT   = 40;   
 }
-
+*/
 
 /*
 class MyImageIcon extends ImageIcon
