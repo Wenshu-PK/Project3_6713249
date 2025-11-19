@@ -140,8 +140,21 @@ public class bossSelection extends SelectionDialog {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-
-                // new bossfight(...,owner,player_selected,Difficulty.getSelectedIndex());
+                  int boss_selected;
+                if (jRadioButton1.isSelected()) {
+                    System.out.println("Player 1 selected");
+                    boss_selected = 1;
+                } else if (jRadioButton2.isSelected()) {
+                    System.out.println("Player 2 selected");
+                    boss_selected = 2;
+                } else if (jRadioButton3.isSelected()) {
+                    System.out.println("Player 3 selected");
+                    boss_selected = 3;
+                } else {
+                    System.out.println("No player selected!");
+                    return;
+                }
+                // new bossfight(...,owner,player_selected,boss_selected,Difficulty.getSelectedIndex());
                 //dispose();
             }
 
