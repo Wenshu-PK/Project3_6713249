@@ -58,8 +58,18 @@ interface constants {
     
     static final String CREDIT = PATH + "BG_Credits.jpg";
     
+    static final String HP_BOSS = PATH + "full_HP_BOSS1.png";
+    static final String HP_BOSS_EMPTY = PATH + "empthy_HP_BOSS.png";
+    static final String HP_PLAYER = PATH + "full_HP_Player.png";
+    static final String HP_PLAYER_EMPTY = PATH + "empthy_HP_Player.png";
+    
     static final int frameWidth = 1188;
     static final int frameHeight = 668;
+    
+    static final int bBarWidth = 881;
+    static final int bBarHeight = 120;
+    static final int pBarWidth = 467;
+    static final int pBarHeight = 67;
     
     // [Max] Added specific path for sound files to separate them from images.
     
@@ -74,7 +84,7 @@ interface constants {
     
   
     
-    static final String FILE_BG             = PATH + "BG1_PlaySC.png";
+    static final String FILE_BG             = PATH + "BG2_PlaySC_floor.png";
     // [Max] Backgrounds
     //static final String SETTING_BG          = PATH + "BG_setting.png"; 
     
@@ -94,9 +104,9 @@ interface constants {
 
     static final int FRAME_WIDTH  = 1366;
     static final int FRAME_HEIGHT = 768;
-    static final int GROUND_Y     = 568;
-    static final int PLAYER_WIDTH    = 150;
-    static final int PLAYER_HEIGHT   = 100;
+    static final int GROUND_Y     = 450;
+    static final int PLAYER_WIDTH    = 125;
+    static final int PLAYER_HEIGHT   = 125;
     static final int ITEM_WIDTH    = 40;
     static final int ITEM_HEIGHT   = 40;  
 }
