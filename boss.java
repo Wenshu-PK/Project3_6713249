@@ -1,17 +1,18 @@
-package Project3_6713249;
+package Project3_xxx;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public abstract class boss extends JLabel {
 
     protected GameEngine game;
-    protected int difficulty;     // 0 easy, 1 medium, 2 hard
+    protected int difficulty;
+
     protected int maxHP;
     protected int hp;
-
     protected int moveSpeed;
-    protected int attackInterval; // milliseconds
+    protected int attackInterval;
     protected int contactDamage;
 
     protected MyImageIcon imgNormal;
@@ -27,37 +28,57 @@ public abstract class boss extends JLabel {
         this.difficulty = difficulty;
 
         setOpaque(false);
-        setSize(200, 150); // default size (you can change)
     }
 
-    // called by GameEngine after adding boss to drawpane
     public void start() {
-        if (moveTimer   != null) moveTimer.start();
+        if (moveTimer != null) moveTimer.start();
         if (attackTimer != null) attackTimer.start();
     }
 
     public void stop() {
-        if (moveTimer   != null) moveTimer.stop();
+        if (moveTimer != null) moveTimer.stop();
         if (attackTimer != null) attackTimer.stop();
+    }
+
+    protected void setSprites(MyImageIcon normal,
+                              MyImageIcon attack,
+                              MyImageIcon hurt,
+                              MyImageIcon dead) {
+
+        this.imgNormal = normal;
+        this.imgAttack = attack;
+        this.imgHurt   = hurt;
+        this.imgDead   = dead;
+
+        if (imgNormal != null) setIcon(imgNormal);
     }
 
     public void takeDamage(int dmg) {
         hp -= dmg;
-        if (hp <= 0) {
-            hp = 0;
-            setIcon(imgDead);
+        if (hp < 0) hp = 0;
+
+        if (hp == 0) {
+            if (imgDead != null) setIcon(imgDead);
             stop();
-            //game.gameOver(true); // player wins
         } else {
-            setIcon(imgHurt);
-            // quickly switch back to normal
-            new Timer(200, e -> {
-                setIcon(imgNormal);
-                ((Timer)e.getSource()).stop();
-            }).start();
+            if (imgHurt != null) {
+                setIcon(imgHurt);
+                new Timer(150, e -> {
+                    setIcon(imgNormal);
+                    ((Timer)e.getSource()).stop();
+                }).start();
+            }
         }
     }
 
-    // each boss will set its own stats
+    protected boolean hitPlayer(Rectangle box) {
+        PlayerLabel p = game.getPlayerLabel();
+        if (p == null) return false;
+        return box.intersects(p.getBounds());
+    }
+
     protected abstract void initStats();
+
+    public int getHP() { return hp; }
+    public int getMaxHP() { return maxHP; }
 }
