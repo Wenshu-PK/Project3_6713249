@@ -47,7 +47,7 @@ public abstract class boss extends JLabel {
             hp = 0;
             setIcon(imgDead);
             stop();
-            game.gameOver(true); // player wins
+            //game.gameOver(true); // player wins
         } else {
             setIcon(imgHurt);
             // quickly switch back to normal
@@ -61,4 +61,3 @@ public abstract class boss extends JLabel {
     // each boss will set its own stats
     protected abstract void initStats();
 }
-
