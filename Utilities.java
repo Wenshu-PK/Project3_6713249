@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 interface constants {
 
     static final String PATH = "src/main/java/Project3_6713249/imageP/";
-    
+    static final String SOUND_PATH = "src/main/java/Project3_6713249/soundP/";
     //static final String MENU_BG = PATH + "BACKGROUND.png";
     //static final String MENU_BG_MP4 = PATH + "BACKGROUND_MP4.mp4";
     static final String MENU_BG_GIF = PATH + "Background1.gif";
@@ -62,7 +62,7 @@ interface constants {
     static final int frameHeight = 668;
     
     // [Max] Added specific path for sound files to separate them from images.
-    static final String SOUND_PATH = "src/main/java/Project3_6713249/soundP/";
+    
     
     // [Max] Added constants for the selectable music tracks.
     static final String SONG_TITANIUM       = SOUND_PATH + "titanium.wav";
@@ -71,6 +71,34 @@ interface constants {
     
     // [Max] Added constant for the Settings dialog background image.
     static final String SETTING_BG          = PATH + "BG_setting.png"; 
+    
+  
+    
+    static final String FILE_BG             = PATH + "BG1_PlaySC.png";
+    // [Max] Backgrounds
+    //static final String SETTING_BG          = PATH + "BG_setting.png"; 
+    
+    // [Max] Buttons
+    //static final String SETTINGBUTTON       = PATH + "setting.png";
+    
+    
+    static final String PlAYER_LEFT         = PATH + "player1_useGUN.png";
+    static final String PLAYER_RIGHT        = PATH + "girl_right.png";
+    static final String FILE_FRUIT          = PATH + "starfruits2.png";
+    static final String FILE_STAR           = PATH + "star.gif";    
+    
+    static final String FILE_THEME          = SOUND_PATH + "theme.wav";
+    static final String FILE_COLLECT_FX     = SOUND_PATH + "twotaps.wav";
+    static final String FILE_BOUNCE_FX      = SOUND_PATH + "beep.wav";
+    // [Max] Sounds Files
+
+    static final int FRAME_WIDTH  = 1366;
+    static final int FRAME_HEIGHT = 768;
+    static final int GROUND_Y     = 568;
+    static final int PLAYER_WIDTH    = 150;
+    static final int PLAYER_HEIGHT   = 100;
+    static final int ITEM_WIDTH    = 40;
+    static final int ITEM_HEIGHT   = 40;  
 }
 
 class MyImageIcon extends ImageIcon {
