@@ -5,8 +5,8 @@ import javax.swing.ImageIcon;
 
 interface constants {
 
-    static final String PATH = "src/main/java/Project3_6713249/imageP/";
-    static final String SOUND_PATH = "src/main/java/Project3_6713249/soundP/";
+    static final String PATH = "src/main/java/Project3_6713249-main/imageP/";
+    static final String SOUND_PATH = "src/main/java/Project3_6713249-main/soundP/";
     //static final String MENU_BG = PATH + "BACKGROUND.png";
     //static final String MENU_BG_MP4 = PATH + "BACKGROUND_MP4.mp4";
     static final String MENU_BG_GIF = PATH + "Background1.gif";
@@ -57,6 +57,17 @@ interface constants {
     static final String OKBUTTON_HOVER = PATH + "C1OK.png";
     
     static final String CREDIT = PATH + "BG_Credits.jpg";
+    
+    // boss1 battle sprites
+    static final String BOSS1_NORMAL    = PATH + "Boss1.png";
+    static final String BOSS1_ATTACK    = PATH + "Boss1_Damage1.png";
+    static final String BOSS1_HURT      = PATH + "Boss1_shooted.png";
+    static final String BOSS1_DEFEATED  = PATH + "Boss1_die.png";
+
+// boss1 attack parts
+static final String BOSS1_MARK      = PATH + "Boss_direct_and_damage.png";
+static final String BOSS1_LASER     = PATH + "Boss1_Damage2.png";
+
     
     static final String HP_BOSS = PATH + "full_HP_BOSS1.png";
     static final String HP_BOSS_EMPTY = PATH + "empthy_HP_BOSS.png";
