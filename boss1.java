@@ -1,5 +1,5 @@
 package Project3_6713249;
-
+/*
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -12,14 +12,14 @@ public class boss1 extends BossBase {
         super(game, difficulty);
 
         // load images
-        imgNormal   = new MyImageIcon(MyConstants.Boss1).resize(200, 150);
-        imgAttack   = new MyImageIcon(MyConstants.Boss1_Damage1).resize(200, 150);
-        imgHurt     = new MyImageIcon(MyConstants.Boss1_shooted).resize(200, 150);
-        imgDead     = new MyImageIcon(MyConstants.Boss1_die).resize(200, 150);
+        imgNormal   = new MyImageIcon(constants.Boss1).resize(200, 150);
+        imgAttack   = new MyImageIcon(constants.Boss1_Damage1).resize(200, 150);
+        imgHurt     = new MyImageIcon(constants.Boss1_shooted).resize(200, 150);
+        imgDead     = new MyImageIcon(constants.Boss1_die).resize(200, 150);
         setIcon(imgNormal);
 
         // initial position: top center
-        int startX = (MyConstants.FRAME_WIDTH - getWidth()) / 2;
+        int startX = (constants.FRAME_WIDTH - getWidth()) / 2;
         int startY = 50;
         setBounds(startX, startY, getWidth(), getHeight());
 
@@ -27,10 +27,10 @@ public class boss1 extends BossBase {
         initStats();
 
         // create mark & laser labels
-        markLabel  = new JLabel(new MyImageIcon(MyConstants.Boss_direct_and_damage).resize(50, 20));
+        markLabel  = new JLabel(new MyImageIcon(constants.Boss_direct_and_damage).resize(50, 20));
         markLabel.setVisible(false);
 
-        laserLabel = new JLabel(new MyImageIcon(MyConstants.BOSS1_Damage2).resize(20, 400));
+        laserLabel = new JLabel(new MyImageIcon(constants.BOSS1_Damage2).resize(20, 400));
         laserLabel.setVisible(false);
 
         // add them to game
@@ -82,7 +82,7 @@ public class boss1 extends BossBase {
 
         // keep inside frame
         int minX = 0;
-        int maxX = MyConstants.FRAME_WIDTH - getWidth();
+        int maxX = constants.FRAME_WIDTH - getWidth();
         if (newX < minX) newX = minX;
         if (newX > maxX) newX = maxX;
 
@@ -97,7 +97,7 @@ public class boss1 extends BossBase {
 
         // place mark at player's current X on ground
         int markX = player.getX() + player.getWidth() / 2 - markLabel.getWidth() / 2;
-        int markY = MyConstants.GROUND_Y;
+        int markY = constants.GROUND_Y;
         markLabel.setBounds(markX, markY, markLabel.getWidth(), markLabel.getHeight());
         markLabel.setVisible(true);
 
@@ -132,7 +132,7 @@ public class boss1 extends BossBase {
                 }
 
                 // reached ground or below
-                if (newY > MyConstants.GROUND_Y) {
+                if (newY > constants.GROUND_Y) {
                     laserLabel.setVisible(false);
                     laserTimer.stop();
                     setIcon(imgNormal);
@@ -141,5 +141,4 @@ public class boss1 extends BossBase {
         });
         laserTimer.start();
     }
-}
-
+}*/
