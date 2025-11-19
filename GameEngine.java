@@ -1,5 +1,10 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Project3_6713249;
 
+//Anun Luechaphongthip 6713253
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -45,7 +50,7 @@ class GameEngine extends JFrame
         }
     }
 
-// So boss can take damage (if you add player attack later)
+    // So boss can take damage (if you add player attack later)
     public void damageBoss(int dmg) {
         if (bossHPBar != null) {
             bossHPBar.takeDamage(dmg);
