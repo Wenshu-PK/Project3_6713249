@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Project3_6713249;
 
-//Anun Luechaphongthip 6713253
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -33,6 +28,57 @@ class GameEngine extends JFrame
      public boolean getRunning()     {return iRunning;}
      public void removeItem(JLabel item)  { drawpane.remove(item); repaint(); }
      
+     // So boss can know the player position
+    public PlayerLabel getPlayerLabel() {
+    return playerLabel;
+    }
+    
+    // So boss can damage player HP bar
+    public void damagePlayer(int dmg) {
+        if (playerHPBar != null) {
+            playerHPBar.takeDamage(dmg);
+            if (playerHPBar.getHP() <= 0) {
+                // TODO: show lose screen later
+                System.out.println("Player died");
+                iRunning = false;
+            }
+        }
+    }
+
+// So boss can take damage (if you add player attack later)
+    public void damageBoss(int dmg) {
+        if (bossHPBar != null) {
+            bossHPBar.takeDamage(dmg);
+            if (bossHPBar.getHP() <= 0) {
+                // TODO: show win screen later
+                System.out.println("Boss died");
+                iRunning = false;
+            }
+        }
+    }
+
+    // allow boss to add extra labels (laser, marks, explosions...) to game area
+    public void addGameObject(JLabel lbl) {
+        drawpane.add(lbl);
+        drawpane.repaint();
+    }
+
+    private void createBoss(int bossType, int difficulty) {
+
+    if (bossType == 1) {
+        bossLabel = new boss1(this, difficulty);
+    }
+    // later:
+    // else if (bossType == 2) bossLabel = new boss2(this, difficulty);
+    // else if (bossType == 3) bossLabel = new boss3(this, difficulty);
+
+    if (bossLabel != null) {
+        bossLabel.start();   // start its timers / movement
+    }
+}
+
+    
+    
      public GameEngine(int p, int b, int d)
      {
          setTitle("George Droid battle");
@@ -85,9 +131,20 @@ class GameEngine extends JFrame
          drawpane.add(bossHPBar);
          playerHPBar = new HPBar(currentFrame, 2, 100);
          drawpane.add(playerHPBar);
-         
+         // create the correct boss
+        createBoss(b, d);
+
+        // add boss label onto drawpane if not null
+        if (bossLabel != null) {
+        drawpane.add(bossLabel);
+        }
+
          contentpane.add(drawpane, BorderLayout.CENTER);
          validate();
+         
+         
      }
+     
+     
      
 }
