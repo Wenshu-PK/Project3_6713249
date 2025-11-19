@@ -21,8 +21,8 @@ class GameEngine extends JFrame
      private MyImageIcon        backgroundImg;    
      private MySoundEffect      themeSound;
     
-     private int framewidth  = MyConstants.FRAME_WIDTH;
-     private int frameheight = MyConstants.FRAME_HEIGHT;
+     private int framewidth  = constants.FRAME_WIDTH;
+     private int frameheight = constants.FRAME_HEIGHT;
      private int playerHP, bossHP;
      private boolean iRunning;
      
@@ -45,7 +45,7 @@ class GameEngine extends JFrame
      }
      public void AddComponents()
      {
-         backgroundImg  = new MyImageIcon(MyConstants.FILE_BG).resize(framewidth, frameheight-100);
+         backgroundImg  = new MyImageIcon(constants.FILE_BG).resize(framewidth, frameheight-100);
          drawpane = new JLabel();
 	 drawpane.setIcon(backgroundImg);
          drawpane.setLayout(null);
