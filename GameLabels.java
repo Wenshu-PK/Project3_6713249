@@ -16,9 +16,9 @@ class PlayerLabel extends JLabel
     private GameEngine      parentFrame;
     private MyImageIcon     leftImg, rightImg;
     
-    private int width   = MyConstants.PLAYER_WIDTH;
-    private int height  = MyConstants.PLAYER_HEIGHT;
-    private int curY    = MyConstants.GROUND_Y;
+    private int width   = constants.PLAYER_WIDTH;
+    private int height  = constants.PLAYER_HEIGHT;
+    private int curY    = constants.GROUND_Y;
     private int curX    = 100;
     
     private boolean jumping    = false;
@@ -31,8 +31,8 @@ class PlayerLabel extends JLabel
     public PlayerLabel(GameEngine pf)
     {
         parentFrame = pf;
-        leftImg = new MyImageIcon(MyConstants.PlAYER_LEFT).resize(width, height);
-        rightImg = new MyImageIcon(MyConstants.PlAYER_LEFT).resize(width, height);
+        leftImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height);
+        rightImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height);
         
         setIcon(leftImg);
         setBounds(curX, curY, width, height);
@@ -46,8 +46,8 @@ class PlayerLabel extends JLabel
             if(jumping == true){
                 curY = curY + jumpVelocity;
                 jumpVelocity += 1;
-                if(curY >= MyConstants.GROUND_Y){
-                    curY = MyConstants.GROUND_Y;
+                if(curY >= constants.GROUND_Y){
+                    curY = constants.GROUND_Y;
                     jumping = false;
                 }
             }
@@ -62,8 +62,8 @@ class PlayerLabel extends JLabel
             if(jumping == true){
                 curY = curY + jumpVelocity;
                 jumpVelocity += 1;
-                if(curY >= MyConstants.GROUND_Y){
-                    curY = MyConstants.GROUND_Y;
+                if(curY >= constants.GROUND_Y){
+                    curY = constants.GROUND_Y;
                     jumping = false;
                 }
             }
@@ -76,7 +76,7 @@ class PlayerLabel extends JLabel
         repaint();             
     }
     public void jump() {
-    if (!jumping && curY == MyConstants.GROUND_Y) {
+    if (!jumping && curY == constants.GROUND_Y) {
         jumping = true;
         jumpVelocity = JUMP_STRENGTH;
     }
