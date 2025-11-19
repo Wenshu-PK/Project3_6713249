@@ -154,8 +154,8 @@ public class bossSelection extends SelectionDialog {
                     System.out.println("No player selected!");
                     return;
                 }
-                // new bossfight(...,owner,player_selected,boss_selected,Difficulty.getSelectedIndex());
-                //dispose();
+                new GameEngine(player_selected,boss_selected,Difficulty.getSelectedIndex());
+                dispose();
             }
 
             @Override

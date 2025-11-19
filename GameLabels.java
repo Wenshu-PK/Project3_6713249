@@ -28,12 +28,18 @@ class PlayerLabel extends JLabel
     private int jumpVelocity;
     private final int JUMP_STRENGTH = -18;
     
-    public PlayerLabel(GameEngine pf)
+    public PlayerLabel(GameEngine pf, int playerType)
     {
         parentFrame = pf;
-        leftImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height);
-        rightImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height);
-        
+        switch (playerType){
+            case 1: {leftImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height);
+                     rightImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height); break;}
+            case 2: {leftImg = new MyImageIcon(constants.PLAYER_2).resize(width, height);
+                     rightImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height); break;}
+            case 3: {leftImg = new MyImageIcon(constants.PLAYER_3).resize(width, height);
+                     rightImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height); break;}
+                    
+        }
         setIcon(leftImg);
         setBounds(curX, curY, width, height);
     }
@@ -53,7 +59,7 @@ class PlayerLabel extends JLabel
             }
             if(curX + width - 150 < 0)
             {
-                curX = 30;
+                curX = 5;
             }
         }
         else if(d == 1)
@@ -67,18 +73,28 @@ class PlayerLabel extends JLabel
                     jumping = false;
                 }
             }
-            if(curX + width + 100 > frameW )
+            if(curX + width + 10 > frameW )
             {
-                curX = frameW - width - 30;
+                curX = frameW - width;
             }
         }
         setLocation(curX, curY);
         repaint();             
     }
     public void jump() {
-    if (!jumping && curY == constants.GROUND_Y) {
-        jumping = true;
-        jumpVelocity = JUMP_STRENGTH;
+        if (!jumping && curY == constants.GROUND_Y) {
+            jumping = true;
+            jumpVelocity = JUMP_STRENGTH;
+        }
     }
 }
+class HpLabel extends JLabel
+{
+    private GameEngine      parentFrame;
+    private MyImageIcon     myImage;
+    public HpLabel(GameEngine pf, int type)
+    {
+        
+    }
+    
 }

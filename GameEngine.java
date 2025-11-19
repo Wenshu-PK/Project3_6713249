@@ -16,6 +16,7 @@ class GameEngine extends JFrame
      private JLabel             drawpane;
      
      private PlayerLabel        playerLabel;
+     private boss               bossLabel;
      private GameEngine         currentFrame;
      
      private MyImageIcon        backgroundImg;    
@@ -29,7 +30,7 @@ class GameEngine extends JFrame
      
      public void removeItem(JLabel item)  { drawpane.remove(item); repaint(); }
      
-     public GameEngine()
+     public GameEngine(int p, int b, int d)
      {
          setTitle("George Droid battle");
          setSize(framewidth, frameheight);
@@ -41,9 +42,9 @@ class GameEngine extends JFrame
          
          contentpane = (JPanel)getContentPane();
 	 contentpane.setLayout( new BorderLayout() );        
-         AddComponents();
+         AddComponents(p,b,d);
      }
-     public void AddComponents()
+     public void AddComponents(int p, int b, int d)
      {
          backgroundImg  = new MyImageIcon(constants.FILE_BG).resize(framewidth, frameheight-100);
          drawpane = new JLabel();
@@ -52,7 +53,7 @@ class GameEngine extends JFrame
          //themeSound = new MySoundEffect(MyConstants.FILE_THEME); 
          //themeSound.playLoop(); themeSound.setVolume(0.2f);
          
-         playerLabel = new PlayerLabel(currentFrame);
+         playerLabel = new PlayerLabel(currentFrame, p);
          drawpane.add(playerLabel);
          this.addKeyListener( new KeyListener(){
             @Override
@@ -70,17 +71,5 @@ class GameEngine extends JFrame
          contentpane.add(drawpane, BorderLayout.CENTER);
          validate();
      }
-     public void setGirlThread()
-    {
-        Thread playerThread = new Thread() {
-            public void run()
-            {
-                while (iRunning)
-                {
-                    
-                }          
-            } // end run
-        }; // end thread creation
-        playerThread.start();
-    }    
+     
 }
