@@ -144,6 +144,7 @@ class HPBar extends JLabel
         setOpaque(false); // allow transparency
         
     }
+    
 
     @Override
     protected void paintComponent(Graphics g)
