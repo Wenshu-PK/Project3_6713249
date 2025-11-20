@@ -5,8 +5,8 @@ import javax.swing.ImageIcon;
 
 interface constants {
 
-    static final String PATH = "src/main/java/Project3_6713249-main/imageP/";
-    static final String SOUND_PATH = "src/main/java/Project3_6713249-main/soundP/";
+    static final String PATH = "src/main/java/Project3_6713249/imageP/";
+    static final String SOUND_PATH = "src/main/java/Project3_6713249/soundP/";
     //static final String MENU_BG = PATH + "BACKGROUND.png";
     //static final String MENU_BG_MP4 = PATH + "BACKGROUND_MP4.mp4";
     static final String MENU_BG_GIF = PATH + "Background1.gif";
