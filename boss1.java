@@ -58,6 +58,32 @@ public class boss1 extends boss {
         game.addGameObject(laserLabel);
     }
 
+    @Override
+    protected void initStats() {
+        if (difficulty == 0) {          // Easy
+            maxHP = hp = 200;
+            moveSpeed = 3;
+            contactDamage = 10;
+            attackInterval  = 2500;     // ms between each attack
+            prepDelayMs     = 900;      // time from mark → laser
+            laserDurationMs = 450;      // how long laser stays visible
+        } else if (difficulty == 1) {   // Normal
+            maxHP = hp = 250;
+            moveSpeed = 4;
+            contactDamage = 15;
+            attackInterval  = 2100;
+            prepDelayMs     = 700;
+            laserDurationMs = 380;
+        } else {                        // Hard
+            maxHP = hp = 300;
+            moveSpeed = 5;
+            contactDamage = 20;
+            attackInterval  = 1700;
+            prepDelayMs     = 500;
+            laserDurationMs = 320;
+        }
+    }
+    
     // ------------ main boss loop (Thread) ------------
     @Override
     public void run() {
@@ -118,7 +144,7 @@ public class boss1 extends boss {
         setLocation(newX, getY());
     }
 
-    // ---------- attack phase control (thread-based) ----------
+    // ---------- attack phase control ----------
 
     // start full attack: show mark under boss
     private void startAttackPhase() {
