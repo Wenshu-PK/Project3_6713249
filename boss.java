@@ -3,7 +3,7 @@ package Project3_6713249;
 import javax.swing.*;
 import java.awt.event.*;
 
-public abstract class boss extends JLabel {
+public abstract class boss extends JLabel implements Runnable {
 
     // reference to main game engine
     protected GameEngine game;
