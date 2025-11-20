@@ -24,10 +24,6 @@ public abstract class boss extends JLabel {
     protected MyImageIcon imgHurt;
     protected MyImageIcon imgDead;
 
-    // timers (created in subclasses)
-    protected Timer moveTimer;
-    protected Timer attackTimer;
-
     // ---------- constructor ----------
     public boss(GameEngine game, int difficulty) {
         this.game = game;
@@ -35,18 +31,6 @@ public abstract class boss extends JLabel {
 
         setOpaque(false);        // we will use transparent PNGs
         setSize(200, 150);       // default size; boss1/2/3 can change with setBounds()
-    }
-
-    // ---------- control timers ----------
-    // called by GameEngine after boss is created
-    public void start() {
-        if (moveTimer   != null) moveTimer.start();
-        if (attackTimer != null) attackTimer.start();
-    }
-
-    public void stop() {
-        if (moveTimer   != null) moveTimer.stop();
-        if (attackTimer != null) attackTimer.stop();
     }
 
     // ---------- sprite helper ----------
@@ -66,28 +50,24 @@ public abstract class boss extends JLabel {
     }
 
     // ---------- HP / damage ----------
-    public void takeDamage(int dmg) {
+        public void takeDamage(int dmg) {
         hp -= dmg;
         if (hp < 0) hp = 0;
 
         // tell GameEngine so it can update the boss HP bar
         if (game != null) {
-            game.damageBoss(dmg);    // make sure you implement this in GameEngine
+            game.damageBoss(dmg);
         }
 
         if (hp == 0) {
             if (imgDead != null) {
                 setIcon(imgDead);
             }
-            stop();
             // later: game.gameOver(true); // player wins
         } else {
-            if (imgHurt != null && imgNormal != null) {
+            if (imgHurt != null) {
+                // simple: show hurt image; you can switch back to normal in your loop later if you want
                 setIcon(imgHurt);
-                new Timer(150, e -> {
-                    setIcon(imgNormal);
-                    ((Timer)e.getSource()).stop();
-                }).start();
             }
         }
     }
