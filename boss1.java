@@ -34,7 +34,7 @@ public class boss1 extends boss {
         setSize(bossW, bossH);
         
         // initial position: near top center
-        int startX = (constants.FRAME_WIDTH - getWidth()) / 2;
+        int startX = (constants.frameWidth - getWidth()) / 2;
         int startY = 80;
         setBounds(startX, startY, bossW, bossH);
 
@@ -137,7 +137,7 @@ public class boss1 extends boss {
         int newX = getX() + dx;
 
         int minX = 0;
-        int maxX = constants.FRAME_WIDTH - getWidth();
+        int maxX = constants.frameWidth - getWidth();
         if (newX < minX) newX = minX;
         if (newX > maxX) newX = maxX;
 
@@ -182,6 +182,8 @@ public class boss1 extends boss {
                 // hit only once per shot
                 game.damagePlayer(contactDamage);
                 laserHitThisShot = true;
+                try { Thread.sleep(300); } 
+                catch (InterruptedException e) { e.printStackTrace();}
             }
         }
 

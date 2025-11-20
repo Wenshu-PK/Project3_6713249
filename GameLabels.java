@@ -15,20 +15,40 @@ class PlayerLabel extends JLabel implements Runnable
 {
     
     private GameEngine      parentFrame;
-    private MyImageIcon     leftImg, rightImg;
+    private MyImageIcon     leftImg, rightImg, leftJumpImg, rightJumpImg, shotLeft, shotRight, deadImg;
     
     private int width   = constants.PLAYER_WIDTH;
     private int height  = constants.PLAYER_HEIGHT;
     private int curY    = constants.GROUND_Y;
     private int curX    = 100;
     private int direction;
+    private int maxHP = 100;
+    private int hp;
     
     private boolean jumping    = false;
     private boolean move       = false;
-    public void setJumping(boolean j)   { jumping = j;}
+    public void setJumping(boolean j)   {jumping = j;}
     public void setMove(boolean m)      {move = m;}
     public void setDirection(int d)     {direction = d;}
     
+    public int getMaxHP()               {return maxHP;}
+    public int getHP()                  {return hp;}
+    public void takeDamage(int d)            
+    {
+        hp -= d;
+        if(d == 0)
+        {
+            setIcon(shotLeft);
+        }
+        else
+        {
+            setIcon(shotRight);
+        }
+        move = false;
+        repaint();
+        try { Thread.sleep(200); } 
+        catch (InterruptedException e) { e.printStackTrace(); }
+    }
     
     private int jumpVelocity;
     private final int JUMP_STRENGTH = -18;
@@ -37,14 +57,34 @@ class PlayerLabel extends JLabel implements Runnable
     {
         parentFrame = pf;
         switch (playerType){
-            case 1: {leftImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height);
-                     rightImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height); break;}
-            case 2: {leftImg = new MyImageIcon(constants.PLAYER_2).resize(width, height);
-                     rightImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height); break;}
-            case 3: {leftImg = new MyImageIcon(constants.PLAYER_3).resize(width, height);
-                     rightImg = new MyImageIcon(constants.PlAYER_LEFT).resize(width, height); break;}           
+            case 1: {leftImg = new MyImageIcon(constants.PlAYER1_LEFT);
+                     rightImg = new MyImageIcon(constants.PLAYER1_RIGHT);
+                     leftJumpImg = new MyImageIcon(constants.PLAYER1_JUMP_LEFT);
+                     rightJumpImg = new MyImageIcon(constants.PLAYER1_JUMP_RIGHT);
+                     shotLeft = new MyImageIcon(constants.PLAYER1_SHOT_LEFT);
+                     shotRight = new MyImageIcon(constants.PLAYER1_SHOT_RIGHT);
+                     deadImg = new MyImageIcon(constants.PLAYER1_DEAD);
+                     break;}
+            case 2: {leftImg = new MyImageIcon(constants.PlAYER2_LEFT);
+                     rightImg = new MyImageIcon(constants.PLAYER2_RIGHT);
+                     leftJumpImg = new MyImageIcon(constants.PLAYER2_JUMP_LEFT);
+                     rightJumpImg = new MyImageIcon(constants.PLAYER2_JUMP_RIGHT);
+                     shotLeft = new MyImageIcon(constants.PLAYER2_SHOT_LEFT);
+                     shotRight = new MyImageIcon(constants.PLAYER2_SHOT_RIGHT);
+                     deadImg = new MyImageIcon(constants.PLAYER2_DEAD);
+                     break;}
+            case 3: {leftImg = new MyImageIcon(constants.PlAYER3_LEFT);
+                     rightImg = new MyImageIcon(constants.PLAYER3_RIGHT);
+                     leftJumpImg = new MyImageIcon(constants.PLAYER3_JUMP_LEFT);
+                     rightJumpImg = new MyImageIcon(constants.PLAYER3_JUMP_RIGHT);
+                     shotLeft = new MyImageIcon(constants.PLAYER3_SHOT_LEFT);
+                     shotRight = new MyImageIcon(constants.PLAYER3_SHOT_RIGHT);
+                     deadImg = new MyImageIcon(constants.PLAYER3_DEAD);
+                     break;}
+            default: break;
         }
-        setIcon(leftImg);
+        hp = maxHP;
+        setIcon(rightImg);
         setBounds(curX, curY, width, height);
     }
     @Override
@@ -53,27 +93,55 @@ class PlayerLabel extends JLabel implements Runnable
         while(parentFrame.getRunning())
         {
             updateLocation(move, direction);
-            
+            if(hp <= 0)
+            {
+                setIcon(deadImg);
+                repaint();
+            }
         }
     }
     public void updateLocation(boolean m, int d)
     {
         int frameW = parentFrame.getContentPane().getWidth();
         if(jumping == true){
+            if (d == 0)
+            {
+                setIcon(leftJumpImg);
+            }
+            else
+            {
+                setIcon(rightJumpImg);
+            }
             curY = curY + jumpVelocity;
             jumpVelocity += 1;
             if(curY >= constants.GROUND_Y){
                 curY = constants.GROUND_Y;
                 jumping = false;
+                if (d == 0)
+                {
+                    setIcon(leftImg);
+                }
+                else
+                {
+                    setIcon(rightImg);
+                }
             }
         }
         if (d == 0 && m == true)
         {   
             curX = curX - 10;
             
-            if(curX + width - 125 < 0)
+            if(curX + width -75 < 0)
             {
                 curX = 5;
+            }
+            if(jumping == true)
+            {
+                setIcon(leftJumpImg);
+            }
+            else
+            {
+                setIcon(leftImg);
             }
         }
         else if(d == 1 && m == true)
@@ -82,6 +150,14 @@ class PlayerLabel extends JLabel implements Runnable
             if(curX + width + 10 > frameW )
             {
                 curX = frameW - width;
+            }
+            if(jumping == true)
+            {
+                setIcon(rightJumpImg);
+            }
+            else
+            {
+                setIcon(rightImg);
             }
         }
         setLocation(curX, curY);
@@ -170,17 +246,5 @@ class HPBar extends JLabel
         currentHP -= d;
         if (currentHP < 0) currentHP = 0;
         repaint();
-    }
-
-    public void heal(int h)
-    {
-        currentHP += h;
-        if (currentHP > maxHP) currentHP = maxHP;
-        repaint();
-    }
-
-    public int getHP()
-    {
-        return currentHP;
     }
 }

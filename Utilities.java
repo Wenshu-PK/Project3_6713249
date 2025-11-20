@@ -103,23 +103,32 @@ static final String BOSS1_LASER     = PATH + "Boss1_Damage2.png";
     //static final String SETTINGBUTTON       = PATH + "setting.png";
     
     
-    static final String PlAYER_LEFT         = PATH + "player1_useGUN.png";
-    static final String PLAYER_RIGHT        = PATH + "girl_right.png";
-    static final String FILE_FRUIT          = PATH + "starfruits2.png";
-    static final String FILE_STAR           = PATH + "star.gif";    
+    static final String PlAYER1_LEFT         = PATH + "player1_walk_fillGun_flip.gif";
+    static final String PLAYER1_RIGHT        = PATH + "player1_walk_fillGun.gif";
+    static final String PLAYER1_JUMP_RIGHT   = PATH + "player1_jump.png";
+    static final String PLAYER1_JUMP_LEFT    = PATH + "player1_jump_flip1.png";
+    static final String PLAYER1_SHOT_LEFT    = PATH + "player_shooted_flip1.png";
+    static final String PLAYER1_SHOT_RIGHT   = PATH + "player_shooted.png";
+    static final String PLAYER1_DEAD         = PATH + "player_died.png";
+    static final String PlAYER2_LEFT         = PATH + "player2_walk_fillGun_flip.gif";
+    static final String PLAYER2_RIGHT        = PATH + "player2_walk_fillGun.gif";
+    static final String PLAYER2_JUMP_RIGHT   = PATH + "player2_jump.png";
+    static final String PLAYER2_JUMP_LEFT    = PATH + "player2_jumpflip1.png";
+    static final String PLAYER2_SHOT_LEFT    = PATH + "player2_shooted_flip1.png";
+    static final String PLAYER2_SHOT_RIGHT   = PATH + "player2_shooted.png";
+    static final String PLAYER2_DEAD         = PATH + "player2_died.png";
+    static final String PlAYER3_LEFT         = PATH + "player3_walk_fillGun_flip.gif";
+    static final String PLAYER3_RIGHT        = PATH + "player3_walk_fillGun.gif";
+    static final String PLAYER3_JUMP_RIGHT   = PATH + "player3_jump.png";
+    static final String PLAYER3_JUMP_LEFT    = PATH + "player3_jumpflip.png";
+    static final String PLAYER3_SHOT_LEFT    = PATH + "player3_shooted_flip1.png";
+    static final String PLAYER3_SHOT_RIGHT   = PATH + "player3_shooted.png";
+    static final String PLAYER3_DEAD         = PATH + "player3_died.png";
     
-    static final String FILE_THEME          = SOUND_PATH + "theme.wav";
-    static final String FILE_COLLECT_FX     = SOUND_PATH + "twotaps.wav";
-    static final String FILE_BOUNCE_FX      = SOUND_PATH + "beep.wav";
     // [Max] Sounds Files
-
-    static final int FRAME_WIDTH  = 1366;
-    static final int FRAME_HEIGHT = 768;
-    static final int GROUND_Y     = 450;
-    static final int PLAYER_WIDTH    = 125;
-    static final int PLAYER_HEIGHT   = 125;
-    static final int ITEM_WIDTH    = 40;
-    static final int ITEM_HEIGHT   = 40;  
+    static final int GROUND_Y     = 500;
+    static final int PLAYER_WIDTH    = 79;
+    static final int PLAYER_HEIGHT   = 79; 
 }
 
 class MyImageIcon extends ImageIcon {
