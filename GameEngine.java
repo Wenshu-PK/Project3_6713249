@@ -70,17 +70,22 @@ class GameEngine extends JFrame
 
     private void createBoss(int bossType, int difficulty) {
 
-    if (bossType == 1) {
-        bossLabel = new boss1(this, difficulty);
-    }
-    // later:
-    // else if (bossType == 2) bossLabel = new boss2(this, difficulty);
-    // else if (bossType == 3) bossLabel = new boss3(this, difficulty);
+        if (bossType == 1) {
+            bossLabel = new boss1(this, difficulty);
+        }
+        // later:
+        // else if (bossType == 2) bossLabel = new boss2(this, difficulty);
+        // else if (bossType == 3) bossLabel = new boss3(this, difficulty);
 
-    if (bossLabel != null) {
-        bossLabel.start();   // start its timers / movement
+        if (bossLabel != null) {
+            // add boss to the game area
+            drawpane.add(bossLabel);
+
+            // start boss thread
+            Thread bossThread = new Thread(bossLabel);
+            bossThread.start();
+        }
     }
-}
 
     
     
@@ -132,24 +137,20 @@ class GameEngine extends JFrame
                 else if(kc == KeyEvent.VK_SPACE) { playerLabel.jump();}
             }
          });
-         bossHPBar = new HPBar(currentFrame, 1,100);
-         drawpane.add(bossHPBar);
-         playerHPBar = new HPBar(currentFrame, 2, 100);
-         drawpane.add(playerHPBar);
-         // create the correct boss
-        createBoss(b, d);
+         // --- create boss ---
+        createBoss(b, d);    // bossLabel is created and thread started
 
-        // add boss label onto drawpane if not null
-        if (bossLabel != null) {
-        drawpane.add(bossLabel);
-        }
+        // boss HP bar uses real boss max HP (fallback 100 if something weird)
+        int bossMaxHP = (bossLabel != null) ? bossLabel.getMaxHP() : 100;
+        bossHPBar = new HPBar(currentFrame, 1, bossMaxHP);
+        drawpane.add(bossHPBar);
 
-         contentpane.add(drawpane, BorderLayout.CENTER);
-         validate();
-         
-         
-     }
-     
-     
-     
+        // player HP bar (100 for now)
+        playerHPBar = new HPBar(currentFrame, 2, 100);
+        drawpane.add(playerHPBar);
+
+        contentpane.add(drawpane, BorderLayout.CENTER);
+        validate();
+    }
 }
+
