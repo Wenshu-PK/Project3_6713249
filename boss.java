@@ -78,4 +78,8 @@ public abstract class boss extends JLabel {
     // each concrete boss (boss1, boss2, boss3) must implement this
     // and set maxHP, moveSpeed, attackInterval, contactDamage depending on difficulty
     protected abstract void initStats();
+
+    // each boss also MUST implement run() from Runnable
+    @Override
+    public abstract void run();
 }
