@@ -125,6 +125,11 @@ static final String BOSS1_LASER     = PATH + "Boss1_Damage2.png";
     static final String PLAYER3_SHOT_RIGHT   = PATH + "player3_shooted.png";
     static final String PLAYER3_DEAD         = PATH + "player3_died.png";
     
+    static final String PLAYER_PROJ_IMAGE1    = PATH + "player_Damage1.png";
+    static final String PLAYER_PROJ_IMAGE2   = PATH + "player_Damage2.png";
+    
+    static final int SMALL_PLAYER_PROJECTILE_DIMENSION = 33;
+    static final int BIG_PLAYER_PROJECTILE_DIMENSION = 41;
     // [Max] Sounds Files
     static final int GROUND_Y     = 500;
     static final int PLAYER_WIDTH    = 79;
