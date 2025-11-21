@@ -58,6 +58,11 @@ interface constants {
     
     static final String CREDIT = PATH + "BG_Credits.jpg";
     
+    //selecticon
+    static final String ICON_1 = PATH + "icon1.png";
+    static final String ICON_2 = PATH + "icon2.png";
+    static final String ICON_3 = PATH + "icon3.png";
+    
     // boss1 battle sprites
     static final String BOSS1_NORMAL    = PATH + "Boss1.png";
     static final String BOSS1_ATTACK    = PATH + "Boss1_Damage1.png";
