@@ -58,11 +58,6 @@ interface constants {
     
     static final String CREDIT = PATH + "BG_Credits.jpg";
     
-    //selecticon
-    static final String ICON_1 = PATH + "icon1.png";
-    static final String ICON_2 = PATH + "icon2.png";
-    static final String ICON_3 = PATH + "icon3.png";
-    
     // boss1 battle sprites
     static final String BOSS1_NORMAL    = PATH + "Boss1.png";
     static final String BOSS1_ATTACK    = PATH + "Boss1_Damage1.png";
@@ -122,7 +117,7 @@ static final String BOSS1_LASER     = PATH + "Boss1_Damage2.png";
     static final String PLAYER2_SHOT_LEFT    = PATH + "player2_shooted_flip1.png";
     static final String PLAYER2_SHOT_RIGHT   = PATH + "player2_shooted.png";
     static final String PLAYER2_DEAD         = PATH + "player2_died.png";
-    static final String PlAYER3_LEFT         = PATH + "player3_walk_fillGun_flip.gif";
+    static final String PLAYER3_LEFT         = PATH + "player3_walk_fillGun_flip.gif";
     static final String PLAYER3_RIGHT        = PATH + "player3_walk_fillGun.gif";
     static final String PLAYER3_JUMP_RIGHT   = PATH + "player3_jump.png";
     static final String PLAYER3_JUMP_LEFT    = PATH + "player3_jumpflip.png";
@@ -130,8 +125,17 @@ static final String BOSS1_LASER     = PATH + "Boss1_Damage2.png";
     static final String PLAYER3_SHOT_RIGHT   = PATH + "player3_shooted.png";
     static final String PLAYER3_DEAD         = PATH + "player3_died.png";
     
-    static final String PLAYER_PROJ_IMAGE1    = PATH + "player_Damage1.png";
+    static final String PLAYER_PROJ_IMAGE1   = PATH + "player_Damage1.png";
     static final String PLAYER_PROJ_IMAGE2   = PATH + "player_Damage2.png";
+    
+    static final String PLAYER_GUN           = PATH + "GUN.png";
+    static final String PLAYER_GUN_CHARGE    = PATH + "GUN_chart1.png";
+    
+    static final String PLAYER_GUN_R         = PATH + "GUN_flip.png";
+    static final String PLAYER_GUN_CHARGE_R  = PATH + "GUN_chart1_flip.png";
+    
+    static final int GUN_WIDTH               = 57;
+    static final int GUN_HEIGHT              = 15;
     
     static final int SMALL_PLAYER_PROJECTILE_DIMENSION = 33;
     static final int BIG_PLAYER_PROJECTILE_DIMENSION = 41;

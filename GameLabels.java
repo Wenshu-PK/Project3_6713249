@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Project3_6713249;
-import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,6 +14,8 @@ class PlayerLabel extends JLabel implements Runnable
 {
     
     private GameEngine      parentFrame;
+    private GunLabel        gunLabel;
+    private HPBar           HPBar;
     private MyImageIcon     leftImg, rightImg, leftJumpImg, rightJumpImg, shotLeft, shotRight, deadImg;
     
     private int width   = constants.PLAYER_WIDTH;
@@ -27,9 +28,13 @@ class PlayerLabel extends JLabel implements Runnable
     
     private boolean jumping    = false;
     private boolean move       = false;
+    private int jumpVelocity;
+    private final int JUMP_STRENGTH = -18;
     public void setJumping(boolean j)   {jumping = j;}
     public void setMove(boolean m)      {move = m;}
     public void setDirection(int d)     {direction = d;}
+    public void setGunLabel(GunLabel gl){gunLabel = gl;}
+    public void setHPBar(HPBar hp)      {HPBar = hp;}
     
     public int getMaxHP()               {return maxHP;}
     public int getHP()                  {return hp;}
@@ -46,14 +51,14 @@ class PlayerLabel extends JLabel implements Runnable
         {
             setIcon(shotRight);
         }
+        HPBar.takeDamage(d);
         move = false;
         repaint();
         try { Thread.sleep(350); } 
         catch (InterruptedException e) { e.printStackTrace(); }
     }
     
-    private int jumpVelocity;
-    private final int JUMP_STRENGTH = -18;
+    
     
     public PlayerLabel(GameEngine pf, int playerType)
     {
@@ -75,7 +80,7 @@ class PlayerLabel extends JLabel implements Runnable
                      shotRight = new MyImageIcon(constants.PLAYER2_SHOT_RIGHT);
                      deadImg = new MyImageIcon(constants.PLAYER2_DEAD);
                      break;}
-            case 3: {leftImg = new MyImageIcon(constants.PlAYER3_LEFT);
+            case 3: {leftImg = new MyImageIcon(constants.PLAYER3_LEFT);
                      rightImg = new MyImageIcon(constants.PLAYER3_RIGHT);
                      leftJumpImg = new MyImageIcon(constants.PLAYER3_JUMP_LEFT);
                      rightJumpImg = new MyImageIcon(constants.PLAYER3_JUMP_RIGHT);
@@ -95,10 +100,12 @@ class PlayerLabel extends JLabel implements Runnable
         while(parentFrame.getRunning())
         {
             updateLocation(move, direction);
+            gunLabel.updateLocation(direction);
             if(hp <= 0)
             {
                 setIcon(deadImg);
                 repaint();
+                parentFrame.setRunning(false);
             }
         }
     }
@@ -262,12 +269,10 @@ class playerProjLabel extends JLabel implements Runnable
     private int curX, curY;
     private int finalX, finalY;
     private int speed;
-    private float tanAngle;
-    private float dividend, divider;
+    private double cos, sin;
+    private double totalX, totalY;
     
     private boolean yUp, xRight;
-    
-    public void setSpeed(int s)      {speed = s;}
     
     public playerProjLabel(GameEngine pf, boss bl, PlayerLabel pl, int bulletType, int fX, int fY)
     {
@@ -280,30 +285,33 @@ class playerProjLabel extends JLabel implements Runnable
         
         switch (bulletType)
         {
-            case 1: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE1); dimension = constants.SMALL_PLAYER_PROJECTILE_DIMENSION; damage = 10; break;}
-            case 2: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE2); dimension = constants.BIG_PLAYER_PROJECTILE_DIMENSION; damage = 30; break;}
+            case 1: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE1); dimension = constants.SMALL_PLAYER_PROJECTILE_DIMENSION; 
+                     damage = 10; speed = 4; break;}
+            case 2: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE2); dimension = constants.BIG_PLAYER_PROJECTILE_DIMENSION; 
+                     damage = 70; speed = 2; break;}
         }
         if(curY > finalY)
         {
             yUp = true;
-            dividend = (float) curY - finalY;
+            totalY = (float) curY - finalY;
         }
         else
         {
             yUp = false;
-            dividend = (float) finalY - curY;
+            totalY = (float) finalY - curY;
         }
         if(curX > finalX)
         {
             xRight = false;
-            divider = (float) curX - finalX;
+            totalX = (float) curX - finalX;
         }
         else
         {
             xRight = true;
-            divider = (float) finalX - curX;
+            totalX = (float) finalX - curX;
         }
-        
+        sin = totalY / Math.sqrt(Math.pow(totalX+totalY, 2));
+        cos = totalX / Math.sqrt(Math.pow(totalX+totalY, 2));
         setIcon(proImg);
         setBounds(curX, curY, dimension, dimension);
     }
@@ -330,23 +338,79 @@ class playerProjLabel extends JLabel implements Runnable
     {
         if(yUp == true)
         {
-            curY -= 2;
+            curY -= speed * sin;
         }
         else
         {
-            curY += 2;
+            curY += speed * sin;
         }
         if(xRight != true)
         {
-            curX -= 2; 
+            curX -= speed * cos; 
         }
         else
         {
-            curX += 2;
+            curX += speed * cos;
         }
         setLocation(curX, curY);
         repaint();
         try { Thread.sleep(10); } 
         catch (InterruptedException e) { e.printStackTrace(); }
+    }
+}
+class GunLabel extends JLabel 
+{
+    private PlayerLabel     playerLabel;
+    private boolean         charging;
+    private boolean         charged;
+    
+    private int width       = constants.GUN_WIDTH;
+    private int height      = constants.GUN_HEIGHT;
+    private int curX, curY;
+    
+    private MyImageIcon gunImg, gunImg_Charge, gunImgF, gunImg_ChargeF;
+    
+    public void gCharging(boolean c)    {charging = c;}
+    public void gCharged(boolean c)     {charged = c;}
+    
+    public GunLabel(PlayerLabel pl)
+    {
+        playerLabel = pl;
+        gunImg = new MyImageIcon(constants.PLAYER_GUN).resize(width, height);
+        gunImg_Charge = new MyImageIcon(constants.PLAYER_GUN_CHARGE).resize(width, height);       
+        gunImgF = new MyImageIcon(constants.PLAYER_GUN_R).resize(width, height);
+        gunImg_ChargeF = new MyImageIcon(constants.PLAYER_GUN_CHARGE_R).resize(width, height);
+        setIcon(gunImg);
+        setBounds(curX, curY, width, height);
+    }
+    public void updateLocation(int d)
+    {
+        if(d == 0)
+        {
+            curX = playerLabel.getCurX() - 27;
+            if(charging == true)
+            {
+                setIcon(gunImg_ChargeF);
+            }
+            else
+            {
+                setIcon(gunImgF);
+            }
+        }
+        else if(d == 1)
+        {
+            curX = playerLabel.getCurX() + 27;           
+            if(charging == true)
+            {
+                setIcon(gunImg_Charge); 
+            }
+            else
+            {
+                setIcon(gunImg);
+            }
+        }
+        curY = playerLabel.getCurY() + 20;
+        setLocation(curX, curY);
+        repaint();
     }
 }

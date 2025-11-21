@@ -7,6 +7,7 @@ public abstract class boss extends JLabel implements Runnable {
 
     // reference to main game engine
     protected GameEngine game;
+    private HPBar      Hbar;
 
     // difficulty: 0 = easy, 1 = medium, 2 = hard
     protected int difficulty;
@@ -52,17 +53,19 @@ public abstract class boss extends JLabel implements Runnable {
     // ---------- HP / damage ----------
         public void takeDamage(int dmg) {
         hp -= dmg;
+        Hbar.takeDamage(dmg);
         if (hp < 0) hp = 0;
 
         // tell GameEngine so it can update the boss HP bar
         if (game != null) {
-            game.damageBoss(dmg);
+            //game.damageBoss(dmg);
         }
 
         if (hp == 0) {
             if (imgDead != null) {
                 setIcon(imgDead);
             }
+            game.setRunning(false);
             // later: game.gameOver(true); // player wins
         } else {
             if (imgHurt != null) {
@@ -74,6 +77,7 @@ public abstract class boss extends JLabel implements Runnable {
 
     public int getHP()    { return hp; }
     public int getMaxHP() { return maxHP; }
+    public void setHPBar(HPBar hp)  {Hbar = hp;}
 
     // each concrete boss (boss1, boss2, boss3) must implement this
     // and set maxHP, moveSpeed, attackInterval, contactDamage depending on difficulty

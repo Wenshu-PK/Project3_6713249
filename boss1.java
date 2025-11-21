@@ -180,7 +180,7 @@ public class boss1 extends boss {
                 laserLabel.getBounds().intersects(player.getBounds())) {
 
                 // hit only once per shot
-                game.damagePlayer(contactDamage);
+                player.takeDamage(contactDamage);
                 laserHitThisShot = true;
                 try { Thread.sleep(300); } 
                 catch (InterruptedException e) { e.printStackTrace();}

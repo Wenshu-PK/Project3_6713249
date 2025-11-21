@@ -19,17 +19,23 @@ class GameEngine extends JFrame {
     private GameEngine currentFrame;
     private HPBar bossHPBar;
     private HPBar playerHPBar;
+    private GunLabel gunLabel;
 
     private MyImageIcon backgroundImg;
     private MySoundEffect themeSound;
 
     private int framewidth = constants.frameWidth;
     private int frameheight = constants.frameHeight;
-    private int playerHP, bossHP;
+    //private int playerHP, bossHP;
+    private double chargeStartTime = 0;
+    private boolean charging = false;
     private boolean iRunning;
 
     public boolean getRunning() {
         return iRunning;
+    }
+    public void setRunning(boolean r) {
+        iRunning = r;
     }
 
     public void removeItem(JLabel item) {
@@ -40,31 +46,6 @@ class GameEngine extends JFrame {
     // So boss can know the player position
     public PlayerLabel getPlayerLabel() {
         return playerLabel;
-    }
-
-    // So boss can damage player HP bar
-    public void damagePlayer(int dmg) {
-        if (playerLabel.getHP() != 0) {
-            playerLabel.takeDamage(dmg);
-            playerHPBar.takeDamage(dmg);
-            if (playerLabel.getHP() <= 0) {
-                // TODO: show lose screen later
-                System.out.println("Player died");
-                iRunning = false;
-            }
-        }
-    }
-
-    // So boss can take damage (if you add player attack later)
-    public void damageBoss(int dmg) {
-        if (bossHPBar != null) {
-            bossHPBar.takeDamage(dmg);
-            if (bossLabel.getHP() <= 0) {
-                // TODO: show win screen later
-                System.out.println("Boss died");
-                iRunning = false;
-            }
-        }
     }
 
     // allow boss to add extra labels (laser, marks, explosions...) to game area
@@ -114,28 +95,24 @@ class GameEngine extends JFrame {
         drawpane.setPreferredSize(new Dimension(framewidth, frameheight));
         drawpane.setIcon(backgroundImg);
         drawpane.setLayout(null);
-
-        //themeSound = new MySoundEffect(MyConstants.FILE_THEME); 
-        //themeSound.playLoop(); themeSound.setVolume(0.2f);
+        
         playerLabel = new PlayerLabel(currentFrame, p);
+        gunLabel = new GunLabel(playerLabel);
+        playerLabel.setGunLabel(gunLabel);
         createBoss(b, d);
+        drawpane.add(gunLabel);
         drawpane.add(playerLabel);
         Thread playerThread = new Thread(playerLabel);
         playerThread.start();
+        
         this.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
             @Override
             public void keyReleased(KeyEvent e) {
                 int kc = e.getKeyCode();
                 if (kc == KeyEvent.VK_A || kc == KeyEvent.VK_D) {
                     playerLabel.setMove(false);
-                    playerLabel.setDirection(-1);
                 }
             }
-
             @Override
             public void keyPressed(KeyEvent e) {
                 int kc = e.getKeyCode();
@@ -155,27 +132,62 @@ class GameEngine extends JFrame {
                         break;
                 }
             }
+
+            @Override
+            public void keyTyped(KeyEvent e) {}
         });
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int finalX = e.getX();
                 int finalY = e.getY();
+                gunLabel.gCharging(true);
                 playerProjLabel pProj = new playerProjLabel(currentFrame, bossLabel, playerLabel, 1, finalX, finalY);
                 drawpane.add(pProj);
                 Thread pProjThread = new Thread(pProj); 
                 pProjThread.start();
+                gunLabel.gCharging(false);
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                charging = true;
+                gunLabel.gCharging(true);
+                chargeStartTime = System.currentTimeMillis();
+                double chargeDuration = System.currentTimeMillis() - chargeStartTime;
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (charging) {
+                    int finalX = e.getX();
+                    int finalY = e.getY();
+                    charging = false;
+                    gunLabel.gCharging(false);
+                    double chargeDuration = System.currentTimeMillis() - chargeStartTime;                  
+                    if(chargeDuration >= 2500)
+                    {
+                        playerProjLabel pLProj = new playerProjLabel(currentFrame, bossLabel, playerLabel, 2, finalX, finalY);
+                        drawpane.add(pLProj);
+                        Thread pLProjThread = new Thread(pLProj);
+                        pLProjThread.start();
+                    }
+                    else
+                    {
+                        playerProjLabel pProj = new playerProjLabel(currentFrame, bossLabel, playerLabel, 1, finalX, finalY);
+                        drawpane.add(pProj);
+                        Thread pProjThread = new Thread(pProj); 
+                        pProjThread.start();
+                    }
+                }
             }
         });
-        System.out.println("" + bossLabel);
         
         bossHPBar = new HPBar(currentFrame, 1, bossLabel.getMaxHP());
         drawpane.add(bossHPBar);
         playerHPBar = new HPBar(currentFrame, 2, playerLabel.getMaxHP());
         drawpane.add(playerHPBar);
+        playerLabel.setHPBar(playerHPBar);
+        bossLabel.setHPBar(bossHPBar);
         contentpane.add(drawpane, BorderLayout.CENTER);
         validate();
-
     }
-
 }
