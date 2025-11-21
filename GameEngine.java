@@ -118,6 +118,7 @@ class GameEngine extends JFrame {
         //themeSound = new MySoundEffect(MyConstants.FILE_THEME); 
         //themeSound.playLoop(); themeSound.setVolume(0.2f);
         playerLabel = new PlayerLabel(currentFrame, p);
+        createBoss(b, d);
         drawpane.add(playerLabel);
         Thread playerThread = new Thread(playerLabel);
         playerThread.start();
@@ -155,15 +156,23 @@ class GameEngine extends JFrame {
                 }
             }
         });
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int finalX = e.getX();
+                int finalY = e.getY();
+                playerProjLabel pProj = new playerProjLabel(currentFrame, bossLabel, playerLabel, 1, finalX, finalY);
+                drawpane.add(pProj);
+                Thread pProjThread = new Thread(pProj); 
+                pProjThread.start();
+            }
+        });
         System.out.println("" + bossLabel);
-        int bossMaxHP = (bossLabel != null) ? bossLabel.getMaxHP() : 100;
-        bossHPBar = new HPBar(currentFrame, 1, bossMaxHP);
+        
+        bossHPBar = new HPBar(currentFrame, 1, bossLabel.getMaxHP());
         drawpane.add(bossHPBar);
         playerHPBar = new HPBar(currentFrame, 2, playerLabel.getMaxHP());
         drawpane.add(playerHPBar);
-        // create the correct boss
-        createBoss(b, d);
-
         contentpane.add(drawpane, BorderLayout.CENTER);
         validate();
 

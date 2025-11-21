@@ -33,6 +33,8 @@ class PlayerLabel extends JLabel implements Runnable
     
     public int getMaxHP()               {return maxHP;}
     public int getHP()                  {return hp;}
+    public int getCurX()                {return curX;}
+    public int getCurY()                {return curY;}
     public void takeDamage(int d)            
     {
         hp -= d;
@@ -46,7 +48,7 @@ class PlayerLabel extends JLabel implements Runnable
         }
         move = false;
         repaint();
-        try { Thread.sleep(200); } 
+        try { Thread.sleep(350); } 
         catch (InterruptedException e) { e.printStackTrace(); }
     }
     
@@ -246,5 +248,105 @@ class HPBar extends JLabel
         currentHP -= d;
         if (currentHP < 0) currentHP = 0;
         repaint();
+    }
+}
+class playerProjLabel extends JLabel implements Runnable
+{
+    private GameEngine          parentFrame;
+    private boss                bossLabel;
+    
+    private MyImageIcon         proImg;
+    
+    private int dimension;
+    private int damage;
+    private int curX, curY;
+    private int finalX, finalY;
+    private int speed;
+    private float tanAngle;
+    private float dividend, divider;
+    
+    private boolean yUp, xRight;
+    
+    public void setSpeed(int s)      {speed = s;}
+    
+    public playerProjLabel(GameEngine pf, boss bl, PlayerLabel pl, int bulletType, int fX, int fY)
+    {
+        parentFrame = pf;
+        bossLabel = bl;
+        curX = pl.getCurX();
+        curY = pl.getCurY();
+        finalX = fX;
+        finalY = fY;
+        
+        switch (bulletType)
+        {
+            case 1: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE1); dimension = constants.SMALL_PLAYER_PROJECTILE_DIMENSION; damage = 10; break;}
+            case 2: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE2); dimension = constants.BIG_PLAYER_PROJECTILE_DIMENSION; damage = 30; break;}
+        }
+        if(curY > finalY)
+        {
+            yUp = true;
+            dividend = (float) curY - finalY;
+        }
+        else
+        {
+            yUp = false;
+            dividend = (float) finalY - curY;
+        }
+        if(curX > finalX)
+        {
+            xRight = false;
+            divider = (float) curX - finalX;
+        }
+        else
+        {
+            xRight = true;
+            divider = (float) finalX - curX;
+        }
+        
+        setIcon(proImg);
+        setBounds(curX, curY, dimension, dimension);
+    }
+
+    @Override
+    public void run() {
+        while(true && parentFrame.getRunning())
+        {
+            updateLocation();
+            if(this.getBounds().intersects(bossLabel.getBounds()))
+            {
+                bossLabel.takeDamage(damage);
+                parentFrame.removeItem(this);
+                break;
+            }
+            if(curY < 0 || curY > parentFrame.getHeight() || curX < 0 || curX > parentFrame.getWidth())
+            {
+                parentFrame.removeItem(this);
+                break;
+            }
+        }
+    }
+    public void updateLocation()
+    {
+        if(yUp == true)
+        {
+            curY -= 2;
+        }
+        else
+        {
+            curY += 2;
+        }
+        if(xRight != true)
+        {
+            curX -= 2; 
+        }
+        else
+        {
+            curX += 2;
+        }
+        setLocation(curX, curY);
+        repaint();
+        try { Thread.sleep(10); } 
+        catch (InterruptedException e) { e.printStackTrace(); }
     }
 }
