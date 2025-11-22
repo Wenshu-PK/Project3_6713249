@@ -107,7 +107,7 @@ class PlayerLabel extends JLabel implements Runnable
             {
                 setIcon(deadImg);
                 repaint();
-                parentFrame.GameEnd();
+                parentFrame.GameEnd(false);
             }
         }
     }
@@ -438,4 +438,5 @@ class GunLabel extends JLabel
         setLocation(curX, curY);
         repaint();
     }
+
 }
