@@ -67,7 +67,7 @@ interface constants {
     // boss1 attack parts
     static final String BOSS1_MARK      = PATH + "Boss_direct_and_damage.png";
     static final String BOSS1_LASER     = PATH + "Boss1_Damage2.png";
-
+    
     // boss2 battle sprites
     static final String BOSS2_NORMAL    = PATH + "Boss2.png";
     static final String BOSS2_ATTACK    = PATH + "Boss2_Damage.png";
@@ -77,7 +77,8 @@ interface constants {
     // boss2 attack parts
     static final String BOSS2_BOMB      = PATH + "Boss2_bomb.gif";
     static final String BOSS2_EXPLOSION = PATH + "Explosion.gif";
-        
+
+    
     static final String HP_BOSS = PATH + "full_HP_BOSS1.png";
     static final String HP_BOSS_EMPTY = PATH + "empthy_HP_BOSS.png";
     static final String HP_PLAYER = PATH + "full_HP_Player.png";
@@ -88,6 +89,7 @@ interface constants {
     
     static final int bBarWidth = 881;
     static final int bBarHeight = 120;
+    
     static final int pBarWidth = 467;
     static final int pBarHeight = 67;
     

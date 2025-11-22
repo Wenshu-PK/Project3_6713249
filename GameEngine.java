@@ -26,18 +26,17 @@ class GameEngine extends JFrame {
 
     private int framewidth = constants.frameWidth;
     private int frameheight = constants.frameHeight;
-    //private int playerHP, bossHP;
-    private double chargeStartTime = 0;
+    private int damageTaken;
+    private double chargeStartTime;
+    private double gameStartTime;
+    private double gameEndTime;
+    private double timePlayed;
     private boolean charging = false;
     private boolean iRunning;
 
     public boolean getRunning() {
         return iRunning;
     }
-    public void setRunning(boolean r) {
-        iRunning = r;
-    }
-
     public void removeItem(JLabel item) {
         drawpane.remove(item);
         repaint();
@@ -54,7 +53,7 @@ class GameEngine extends JFrame {
         drawpane.repaint();
     }
 
-    private void createBoss(int bossType, int difficulty) {
+     private void createBoss(int bossType, int difficulty) {
 
         if (bossType == 1) {
             bossLabel = new boss1(this, difficulty);
@@ -75,7 +74,7 @@ class GameEngine extends JFrame {
     }
 
     public GameEngine(int p, int b, int d) {
-        setTitle("George Droid battle");
+        setTitle("Chocolate Hunter: Battle");
         setSize(framewidth, frameheight);
         setLocationRelativeTo(null);
 
@@ -87,9 +86,10 @@ class GameEngine extends JFrame {
         contentpane.setLayout(new BorderLayout());
         AddComponents(p, b, d);
         setVisible(true);
+        gameStartTime = System.currentTimeMillis();
     }
 
-    public void AddComponents(int p, int b, int d) {
+    private void AddComponents(int p, int b, int d) {
 
         backgroundImg = new MyImageIcon(constants.FILE_BG).resize(framewidth, frameheight);
         drawpane = new JLabel();
@@ -127,7 +127,7 @@ class GameEngine extends JFrame {
                         playerLabel.setDirection(1);
                         break;
                     case KeyEvent.VK_SPACE:
-                        playerLabel.jump();
+                        playerLabel.jump(charging);
                         break;
                     default:
                         break;
@@ -153,6 +153,7 @@ class GameEngine extends JFrame {
             public void mousePressed(MouseEvent e) {
                 charging = true;
                 gunLabel.gCharging(true);
+                playerLabel.setSpeed(5);
                 chargeStartTime = System.currentTimeMillis();
                 double chargeDuration = System.currentTimeMillis() - chargeStartTime;
             }
@@ -163,8 +164,8 @@ class GameEngine extends JFrame {
                     int finalY = e.getY();
                     charging = false;
                     gunLabel.gCharging(false);
-                    double chargeDuration = System.currentTimeMillis() - chargeStartTime;                  
-                    if(chargeDuration >= 2500)
+                    double chargeDuration = System.currentTimeMillis() - chargeStartTime;
+                    if(chargeDuration >= 4000)
                     {
                         playerProjLabel pLProj = new playerProjLabel(currentFrame, bossLabel, playerLabel, 2, finalX, finalY);
                         drawpane.add(pLProj);
@@ -178,6 +179,7 @@ class GameEngine extends JFrame {
                         Thread pProjThread = new Thread(pProj); 
                         pProjThread.start();
                     }
+                    playerLabel.setSpeed(8);
                 }
             }
         });
@@ -191,5 +193,11 @@ class GameEngine extends JFrame {
         contentpane.add(drawpane, BorderLayout.CENTER);
         validate();
     }
+    public void GameEnd()
+    {
+        iRunning = false;
+        gameEndTime = System.currentTimeMillis();
+        timePlayed = (gameEndTime - gameStartTime) / 1000;
+        damageTaken = playerLabel.getMaxHP() - playerLabel.getHP(); 
+    }
 }
-

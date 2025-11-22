@@ -22,9 +22,10 @@ class PlayerLabel extends JLabel implements Runnable
     private int height  = constants.PLAYER_HEIGHT;
     private int curY    = constants.GROUND_Y;
     private int curX    = 100;
-    private int direction;
+    private int direction = 1;
     private int maxHP = 100;
     private int hp;
+    private int speed = 8;
     
     private boolean jumping    = false;
     private boolean move       = false;
@@ -35,14 +36,17 @@ class PlayerLabel extends JLabel implements Runnable
     public void setDirection(int d)     {direction = d;}
     public void setGunLabel(GunLabel gl){gunLabel = gl;}
     public void setHPBar(HPBar hp)      {HPBar = hp;}
+    public void setSpeed(int s)         {speed = s;}
     
     public int getMaxHP()               {return maxHP;}
     public int getHP()                  {return hp;}
     public int getCurX()                {return curX;}
     public int getCurY()                {return curY;}
+    public int getDirection()           {return direction;}
     public void takeDamage(int d)            
     {
         hp -= d;
+        if(hp < 0)     { hp = 0; }
         if(d == 0)
         {
             setIcon(shotLeft);
@@ -51,11 +55,9 @@ class PlayerLabel extends JLabel implements Runnable
         {
             setIcon(shotRight);
         }
-        HPBar.takeDamage(d);
-        move = false;
+        HPBar.updateHP(hp);
+        move= false;
         repaint();
-        try { Thread.sleep(350); } 
-        catch (InterruptedException e) { e.printStackTrace(); }
     }
     
     
@@ -105,7 +107,7 @@ class PlayerLabel extends JLabel implements Runnable
             {
                 setIcon(deadImg);
                 repaint();
-                parentFrame.setRunning(false);
+                parentFrame.GameEnd();
             }
         }
     }
@@ -138,7 +140,7 @@ class PlayerLabel extends JLabel implements Runnable
         }
         if (d == 0 && m == true)
         {   
-            curX = curX - 10;
+            curX = curX - speed;
             
             if(curX + width -75 < 0)
             {
@@ -155,7 +157,7 @@ class PlayerLabel extends JLabel implements Runnable
         }
         else if(d == 1 && m == true)
         {
-            curX = curX + 10;
+            curX = curX + speed;
             if(curX + width + 10 > frameW )
             {
                 curX = frameW - width;
@@ -174,8 +176,8 @@ class PlayerLabel extends JLabel implements Runnable
         try { Thread.sleep(35); } 
         catch (InterruptedException e) { e.printStackTrace(); }
     }
-    public void jump() {
-        if (!jumping && curY == constants.GROUND_Y) {
+    public void jump(boolean c) {
+        if (!jumping && curY == constants.GROUND_Y && !c) {
             jumping = true;
             jumpVelocity = JUMP_STRENGTH;
         }
@@ -192,40 +194,35 @@ class HPBar extends JLabel
     private int currentHP;
     private int width;
     private int height;
+    private int lType;
+    int leftOffset, rightOffset, topOffset, buttomOffset;
+    
 
     public HPBar(GameEngine pf, int type, int mH)
     {
         this.parentFrame = pf;
         this.maxHP = mH;
         this.currentHP = maxHP;
-
+        this.lType = type;
         switch (type)
         {
             case 1: // Boss bar
-                frontImg = new MyImageIcon(constants.HP_BOSS)
-                               .resize(constants.bBarWidth, constants.bBarHeight)
-                               .getImage();
-                backImg  = new MyImageIcon(constants.HP_BOSS_EMPTY)
-                               .resize(constants.bBarWidth, constants.bBarHeight)
-                               .getImage();
-                width  = constants.bBarWidth;
-                height = constants.bBarHeight;
+                frontImg = new MyImageIcon(constants.HP_BOSS).getImage();
+                backImg  = new MyImageIcon(constants.HP_BOSS_EMPTY).getImage();
+                width      = constants.bBarWidth;
+                height     = constants.bBarHeight;                       
                 setBounds(125, 5, width, height);
                 break;
 
             case 2: // Player bar
-                frontImg = new MyImageIcon(constants.HP_PLAYER)
-                               .resize(constants.pBarWidth, constants.pBarHeight)
-                               .getImage();
-                backImg  = new MyImageIcon(constants.HP_PLAYER_EMPTY)
-                               .resize(constants.pBarWidth,  constants.pBarHeight)
-                               .getImage();
-                width  = constants.pBarWidth;
-                height = constants.pBarHeight;
+                frontImg = new MyImageIcon(constants.HP_PLAYER).getImage();
+                backImg  = new MyImageIcon(constants.HP_PLAYER_EMPTY).getImage();
+                width      = constants.pBarWidth;
+                height     = constants.pBarHeight;
                 setBounds(350, 560, width, height);
                 break;
         }
-
+        
         setOpaque(false); // allow transparency
         
     }
@@ -235,25 +232,42 @@ class HPBar extends JLabel
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-
+        
+        if(lType == 1)
+        {
+            leftOffset = 130;
+            rightOffset = 24;
+            topOffset = 40;
+            buttomOffset = 29;
+        }
+        else if(lType == 2)
+        {
+            leftOffset = 58;
+            rightOffset = 10;
+            topOffset = 9;
+            buttomOffset = 9;
+        }
+       
         // draw background HP (empty)
         g.drawImage(backImg, 0, 0, width, height, null);
 
         // HP percent
         float percent = (float) currentHP / maxHP;
-        int filledWidth = (int) (width * percent);
+        int maxFillWidth = width - leftOffset - rightOffset;
+        int maxFillHeight = height - topOffset - buttomOffset;
+        int filledWidth = (int)(maxFillWidth * percent);
 
-        // draw front HP (filled) cropped
-        g.drawImage(frontImg, 
-                    0, 0, filledWidth, height,     // destination
-                    0, 0, filledWidth, height,     // source
-                    null);
+        // draw the empty background frame (full)
+        g.drawImage(backImg, 0, 0, width, height, null);
+
+        // draw the fill image inside the frame
+        g.drawImage(frontImg, leftOffset, topOffset, leftOffset + filledWidth, topOffset + maxFillHeight,   // destination
+                    0, 0, filledWidth, maxFillHeight, null); //source
     }
 
-    public void takeDamage(int d)
+    public void updateHP(int h)
     {
-        currentHP -= d;
-        if (currentHP < 0) currentHP = 0;
+        this.currentHP = Math.max(h, 0);
         repaint();
     }
 }
@@ -278,17 +292,27 @@ class playerProjLabel extends JLabel implements Runnable
     {
         parentFrame = pf;
         bossLabel = bl;
-        curX = pl.getCurX();
-        curY = pl.getCurY();
         finalX = fX;
         finalY = fY;
-        
+        int px = pl.getCurX();
+        int py = pl.getCurY();
+        int pw = pl.getWidth();
+        int ph = pl.getHeight();
+        if (pl.getDirection() == 0)  // LEFT
+        {
+            curX = px - 40;            // small offset from left edge
+        }
+        else                          // RIGHT
+        {
+            curX = px + pw - 20;       // small offset from right edge
+        }
+        curY = py + (ph / 2) - 20;
         switch (bulletType)
         {
             case 1: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE1); dimension = constants.SMALL_PLAYER_PROJECTILE_DIMENSION; 
-                     damage = 10; speed = 4; break;}
+                     damage = 4; speed = 4; break;}
             case 2: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE2); dimension = constants.BIG_PLAYER_PROJECTILE_DIMENSION; 
-                     damage = 70; speed = 2; break;}
+                     damage = 30; speed = 2; break;}
         }
         if(curY > finalY)
         {
@@ -366,7 +390,8 @@ class GunLabel extends JLabel
     
     private int width       = constants.GUN_WIDTH;
     private int height      = constants.GUN_HEIGHT;
-    private int curX, curY;
+    private int curX        = 127;
+    private int curY        = constants.GROUND_Y + 20;
     
     private MyImageIcon gunImg, gunImg_Charge, gunImgF, gunImg_ChargeF;
     
