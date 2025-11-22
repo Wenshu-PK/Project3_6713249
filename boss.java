@@ -66,7 +66,7 @@ public abstract class boss extends JLabel implements Runnable {
             if (imgDead != null) {
                 setIcon(imgDead);
             }
-            game.GameEnd();
+            game.GameEnd(true);
             // later: game.gameOver(true); // player wins
         } else {
             if (imgHurt != null) {
