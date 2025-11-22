@@ -59,8 +59,9 @@ class GameEngine extends JFrame {
         if (bossType == 1) {
             bossLabel = new boss1(this, difficulty);
         }
-        // later:
-        // else if (bossType == 2) bossLabel = new boss2(this, difficulty);
+        else if (bossType == 2) {
+            bossLabel = new boss2(this, difficulty);
+        }
         // else if (bossType == 3) bossLabel = new boss3(this, difficulty);
 
         if (bossLabel != null) {
@@ -191,3 +192,4 @@ class GameEngine extends JFrame {
         validate();
     }
 }
+
