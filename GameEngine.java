@@ -33,6 +33,10 @@ class GameEngine extends JFrame {
     private double timePlayed;
     private boolean charging = false;
     private boolean iRunning;
+    
+    private ScoreManager scoreManager = new ScoreManager();
+    public ScoreManager getScoreManager() { return scoreManager; }
+
 
     public boolean getRunning() {
         return iRunning;
@@ -193,11 +197,14 @@ class GameEngine extends JFrame {
         contentpane.add(drawpane, BorderLayout.CENTER);
         validate();
     }
-    public void GameEnd()
+    public void GameEnd(boolean win)
     {
         iRunning = false;
         gameEndTime = System.currentTimeMillis();
         timePlayed = (gameEndTime - gameStartTime) / 1000;
         damageTaken = playerLabel.getMaxHP() - playerLabel.getHP(); 
+        SwingUtilities.invokeLater(() -> {
+        new GameResultDialog(this, win, (int)timePlayed, damageTaken);
+    });
     }
 }
