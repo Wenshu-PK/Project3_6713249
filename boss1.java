@@ -1,7 +1,7 @@
 package Project3_6713249;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.*;
 
 public class boss1 extends boss {
 
@@ -174,18 +174,23 @@ public class boss1 extends boss {
 
         // 2) while laser is active and before end of duration → check hit once
         if (laserActive && attackTimeMs < prepDelayMs + laserDurationMs) {
-            PlayerLabel player = game.getPlayerLabel();
-            if (player != null &&
-                !laserHitThisShot &&
-                laserLabel.getBounds().intersects(player.getBounds())) {
+        PlayerLabel player = game.getPlayerLabel();
+            if (player != null && !laserHitThisShot) {
 
-                // hit only once per shot
-                player.takeDamage(contactDamage);
-                laserHitThisShot = true;
-                try { Thread.sleep(300); } 
-                catch (InterruptedException e) { e.printStackTrace();}
+                // thinner hitbox (cut 25% each side horizontally, 10% top/bottom)
+                Rectangle laserHit = makeHitBox(laserLabel, 0.25, 0.10);
+
+                if (laserHit.intersects(player.getBounds())) {
+                    // hit only once per shot
+                    player.takeDamage(contactDamage);
+                    laserHitThisShot = true;
+
+                    try { Thread.sleep(300); }
+                    catch (InterruptedException e) { e.printStackTrace(); }
+                }
             }
         }
+
 
         // 3) after laser duration → end attack
         if (attackTimeMs >= prepDelayMs + laserDurationMs) {
