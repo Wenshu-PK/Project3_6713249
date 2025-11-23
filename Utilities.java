@@ -8,8 +8,6 @@ interface constants {
     static final String PATH = "src/main/java/Project3_6713249/imageP/";
     static final String SOUND_PATH = "src/main/java/Project3_6713249/soundP/";
     static final String PATHP = "src/main/java/Project3_6713249/";
-    //static final String MENU_BG = PATH + "BACKGROUND.png";
-    //static final String MENU_BG_MP4 = PATH + "BACKGROUND_MP4.mp4";
     static final String MENU_BG_GIF = PATH + "Background1.gif";
 
     static final String STARTBUTTON = PATH + "start.png";
@@ -66,6 +64,9 @@ interface constants {
     //end
     static final String BG_END = PATH + "bg_end.png";
     static final String BG_TABLE = PATH + "bg_table.png";
+    static final String BACKBUTTON_HOVER = PATH + "Back.png";
+    static final String BACKBUTTON = PATH + "Back.png";
+
     
     
     //Storage Data .csv
