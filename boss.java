@@ -2,6 +2,7 @@ package Project3_6713249;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.*;
 
 public abstract class boss extends JLabel implements Runnable {
 
