@@ -154,8 +154,9 @@ public class bossSelection extends SelectionDialog {
                     System.out.println("No player selected!");
                     return;
                 }
-                new GameEngine(player_selected,boss_selected,Difficulty.getSelectedIndex());
-                dispose();
+                new GameEngine(player_selected,boss_selected,Difficulty.getSelectedIndex(), owner);
+                //owner.setVisible(false); //hide page bossselection
+                dispose(); //close bossSelection
             }
 
             @Override
