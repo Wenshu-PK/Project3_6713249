@@ -6,12 +6,11 @@ import java.awt.event.MouseEvent;
 
 public class creditDialog extends SelectionDialog {
     
-    private menuButtonLabel okButton;
     public creditDialog(String bg_path, String name, mainFrame owner) {
         super(bg_path, name, owner);
-        okButton = new menuButtonLabel(constants.OKBUTTON, constants.OKBUTTON_HOVER, 200, 75, owner);
-        okButton.setInitialLocation(constants.frameWidth - 200 - margin, constants.frameHeight - 75 - margin);
-        okButton.addMouseListener(new MouseAdapter() {
+        returnButton = new menuButtonLabel(constants.OKBUTTON, constants.OKBUTTON_HOVER, 200, 75, owner);
+        returnButton.setInitialLocation(constants.frameWidth - 200 - margin, constants.frameHeight - 75 - margin);
+        returnButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Clicked: ok");
@@ -22,18 +21,18 @@ public class creditDialog extends SelectionDialog {
             @Override
             public void mouseEntered(MouseEvent e) {
 
-                okButton.setAltIcon();
+                returnButton.setAltIcon();
 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
 
-                okButton.setMainIcon();
+                returnButton.setMainIcon();
 
             }
         });
-        contentpane.add(okButton);
+        contentpane.add(returnButton);
         setVisible(true);
         
 }
