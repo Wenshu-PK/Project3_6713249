@@ -34,6 +34,9 @@ class GameEngine extends JFrame {
     private boolean charging = false;
     private boolean iRunning;
     
+    //louis
+    private mainFrame menu;
+    
     private ScoreManager scoreManager = new ScoreManager();
     public ScoreManager getScoreManager() { return scoreManager; }
 
@@ -77,7 +80,7 @@ class GameEngine extends JFrame {
         }
     }
 
-    public GameEngine(int p, int b, int d) {
+    public GameEngine(int p, int b, int d, mainFrame menu) {
         setTitle("Chocolate Hunter: Battle");
         setSize(framewidth, frameheight);
         setLocationRelativeTo(null);
@@ -85,7 +88,9 @@ class GameEngine extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         currentFrame = this;
         this.iRunning = true;
-
+        
+        this.menu = menu;
+        
         contentpane = (JPanel) getContentPane();
         contentpane.setLayout(new BorderLayout());
         AddComponents(p, b, d);
@@ -204,7 +209,7 @@ class GameEngine extends JFrame {
         timePlayed = (gameEndTime - gameStartTime) / 1000;
         damageTaken = playerLabel.getMaxHP() - playerLabel.getHP(); 
         SwingUtilities.invokeLater(() -> {
-        new GameResultDialog(this, win, (int)timePlayed, damageTaken);
+        new GameResultDialog(this, win, (int)timePlayed, damageTaken, menu);
     });
     }
 }
