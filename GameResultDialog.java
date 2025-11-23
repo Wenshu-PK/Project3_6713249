@@ -3,96 +3,111 @@ package Project3_6713249;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-public class GameResultDialog extends JDialog {
+public class GameResultDialog extends SelectionDialog {
 
     private GameEngine game;
     private mainFrame menu;
-    private int margin = 60;
 
-    public GameResultDialog(GameEngine gaame, boolean win, int time, int dmg, mainFrame owner) {
+    public GameResultDialog(GameEngine gaame, boolean win, int time, int dmg, int hpmax,int hpremain ,mainFrame owner) {
 
-        super(owner, "Result", true); 
+        // --------------------------
+        // parent constructor
+        // --------------------------
+        super(constants.BG_END, "Result", owner);
 
         this.game = gaame;
         this.menu = owner;
 
-        setSize(constants.frameWidth, constants.frameHeight);
-        setLocationRelativeTo(owner);
-        setLayout(new BorderLayout());
+        setModal(true);  
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        // Handle
-        addWindowListener(new java.awt.event.WindowAdapter() {
+        // Window Close
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
+            public void windowClosing(WindowEvent e) {
                 if (game != null) game.dispose();
                 menu.setVisible(true);
             }
         });
 
-        JLabel bgLabel = new JLabel(new MyImageIcon(constants.BG_END));
-            bgLabel.setLayout(null); // ปิด layout manager
-            setContentPane(bgLabel);
-
-        // WIN/LOSE
+        // ----------------------------------------------------
+        // contentpane ( SelectionDialog)
+        // ----------------------------------------------------
         JLabel msg = new JLabel(win ? "YOU WIN!" : "YOU LOSE!", SwingConstants.CENTER);
-        msg.setFont(new Font("Monospaced", Font.BOLD, 150)); 
+        msg.setFont(new Font("Monospaced", Font.BOLD, 150));
         msg.setForeground(Color.YELLOW);
+        msg.setBounds(0, 20, frameWidth, 180);
+        contentpane.add(msg);
 
-        msg.setBounds(0, 20, constants.frameWidth, 180);
-        bgLabel.add(msg);
-
+        // WIN CASE
         if (win) {
-        int score = Math.max(0, 10000 / (time + 1) - 5 * dmg);
 
-        JLabel Score = new JLabel("Score: " + score, SwingConstants.CENTER);
-        Score.setFont(new Font("Monospaced", Font.PLAIN, 36));
-        Score.setForeground(Color.WHITE);
-        Score.setBounds(0, 220, constants.frameWidth, 50);
-        bgLabel.add(Score);
+            int score = Math.max(0, 10000 / (time + 1) - 5 * dmg);
 
-        
-        menuButtonLabel next = new menuButtonLabel(constants.NEXTBUTTON, constants.NEXTBUTTON_HOVER, 200, 60, menu);
-            next.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 75 - margin, 200, 60);
+            JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
+            scoreLabel.setFont(new Font("Monospaced", Font.PLAIN, 36));
+            scoreLabel.setForeground(Color.WHITE);
+            scoreLabel.setBounds(0, 220, frameWidth, 50);
+            contentpane.add(scoreLabel);
+            
+            JLabel hpLabel = new JLabel("Player hp: " + hpremain + " / " + hpmax, SwingConstants.CENTER);
+            hpLabel.setFont(new Font("Monospaced", Font.PLAIN, 36));
+            hpLabel.setForeground(Color.MAGENTA);
+            hpLabel.setBounds(0, 320, frameWidth, 50);
+            contentpane.add(hpLabel);
+            
+            JLabel TLabel = new JLabel("Survival Time: " + time + " s ", SwingConstants.CENTER);
+            TLabel.setFont(new Font("Monospaced", Font.PLAIN, 36));
+            TLabel.setForeground(Color.CYAN);
+            TLabel.setBounds(0, 420, frameWidth, 50);
+            contentpane.add(TLabel);
+
+            menuButtonLabel next = new menuButtonLabel(
+                    constants.NEXTBUTTON, constants.NEXTBUTTON_HOVER,
+                    200, 60, menu
+            );
+
+            next.setBounds(frameWidth - 200 - margin, frameHeight - 75 - margin, 200, 60);
 
             next.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) { next.setAltIcon(); }
-            @Override
-            public void mouseExited(MouseEvent e) { next.setMainIcon(); }
-        });
+                @Override
+                public void mouseEntered(MouseEvent e) { next.setAltIcon(); }
+                @Override
+                public void mouseExited(MouseEvent e) { next.setMainIcon(); }
+            });
 
-    next.addActionListener(e -> {
-        new NameAndIconDialog(game, game.getScoreManager(), score, menu, this);
-    });
+            next.addActionListener(e -> 
+                new NameAndIconDialog(game, game.getScoreManager(), score, menu, GameResultDialog.this)
+            );
 
-    bgLabel.add(next);
+            contentpane.add(next);
 
-} else {
-    menuButtonLabel back = new menuButtonLabel(constants.BACKBUTTON, constants.BACKBUTTON_HOVER, 200, 60, menu);
-    back.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 75 - margin, 200, 60);
+        } else {
 
-    back.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseEntered(MouseEvent e) { back.setAltIcon(); }
-        @Override
-        public void mouseExited(MouseEvent e) { back.setMainIcon(); }
-    });
+            // LOSE CASE
+            menuButtonLabel back = new menuButtonLabel(
+                    constants.BACKBUTTON, constants.BACKBUTTON_HOVER,
+                    200, 60, menu
+            );
 
-    back.addActionListener(e -> {
-        dispose();
-        game.dispose();
-        menu.setVisible(true);
-    });
+            back.setBounds(frameWidth - 200 - margin, frameHeight - 75 - margin, 200, 60);
 
-    bgLabel.add(back);
-}
+            back.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) { back.setAltIcon(); }
+                @Override
+                public void mouseExited(MouseEvent e) { back.setMainIcon(); }
+            });
 
+            back.addActionListener(e -> {
+                dispose();
+                game.dispose();
+                menu.setVisible(true);
+            });
+
+            contentpane.add(back);
+        }
 
         setVisible(true);
     }
