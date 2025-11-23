@@ -30,7 +30,7 @@ public class boss2 extends boss {
 
     // timing (ms) – set by initStats()
     private int prepDelayMs;                 // time to show red marks before bombs are thrown
-    private int explosionDurationMs = 1100;  // explosion visible time
+    private int explosionDurationMs = 1000;  // explosion visible time
 
     // movement
     private int dirX = 1;      // horizontal direction: 1 = right, -1 = left
