@@ -16,7 +16,7 @@ public class GameResultDialog extends JDialog {
 
     public GameResultDialog(GameEngine gaame, boolean win, int time, int dmg, mainFrame owner) {
 
-        super(owner, "Result", true); // modal 
+        super(owner, "Result", true); 
 
         this.game = gaame;
         this.menu = owner;
@@ -57,7 +57,7 @@ if (win) {
     bgLabel.add(Score);
 
     // ปุ่ม Next
-    menuButtonLabel next = new menuButtonLabel(constants.NEXTB, constants.NEXTB_HOVER, 200, 60, menu);
+    menuButtonLabel next = new menuButtonLabel(constants.NEXTBUTTON, constants.NEXTBUTTON_HOVER, 200, 60, menu);
     next.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 75 - margin, 200, 60);
 
     next.addMouseListener(new MouseAdapter() {
@@ -74,7 +74,7 @@ if (win) {
     bgLabel.add(next);
 
 } else {
-    menuButtonLabel back = new menuButtonLabel(constants.BACKB, constants.BACKB_HOVER, 200, 60, menu);
+    menuButtonLabel back = new menuButtonLabel(constants.BACKBUTTON, constants.BACKBUTTON_HOVER, 200, 60, menu);
     back.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 75 - margin, 200, 60);
 
     back.addMouseListener(new MouseAdapter() {
