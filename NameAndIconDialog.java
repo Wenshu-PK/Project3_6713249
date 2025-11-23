@@ -2,112 +2,138 @@ package Project3_6713249;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class NameAndIconDialog extends JDialog {
+public class NameAndIconDialog extends SelectionDialog {
 
     private mainFrame menu;
     private GameEngine game;
     private JDialog parentDialog;
 
-    public NameAndIconDialog(GameEngine gaame, ScoreManager manager, int score, mainFrame owner, JDialog parent) {
-        super(owner, "Player Info", true); // modal
+    public NameAndIconDialog(
+            GameEngine gaame,
+            ScoreManager manager,
+            int score,
+            mainFrame owner,
+            JDialog parent
+    ) {
+
+        // ---------------------------------
+        // constructor SelectionDialog
+        // ---------------------------------
+        super(constants.BG_END, "Player Info", owner);
+
         this.game = gaame;
         this.menu = owner;
         this.parentDialog = parent;
 
-        setSize(constants.frameWidth, constants.frameHeight);
-        setLocationRelativeTo(owner);
+        setModal(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        // Handle window closing
-        addWindowListener(new java.awt.event.WindowAdapter() {
+        // Handle closing
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
+            public void windowClosing(WindowEvent e) {
                 if (parentDialog != null) parentDialog.dispose();
-                game.dispose();
+                if (game != null) game.dispose();
                 menu.setVisible(true);
             }
         });
 
-        // Background
-        JLabel bgLabel = new JLabel(new MyImageIcon(constants.BG_END));
-        bgLabel.setLayout(new BorderLayout());
-        setContentPane(bgLabel);
+        // ==========================================================
+        // PREVIEW ICON
+        // ==========================================================
+        JLabel preview = new JLabel("", SwingConstants.CENTER);
+        preview.setIcon(IconProvider.loadIcon(0, 150));
+        preview.setBounds(frameWidth / 2 - 75, 40, 150, 150);
+        contentpane.add(preview);
 
-        // Center panel
-        JPanel center = new JPanel(new GridBagLayout());
-        center.setOpaque(false);
-        bgLabel.add(center, BorderLayout.CENTER);
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-
-        // "Enter Name" label
-        JLabel nameLabel = new JLabel("Enter Name:", SwingConstants.CENTER);
+        // ==========================================================
+        // Enter Name
+        // ==========================================================
+        JLabel nameLabel = new JLabel("Enter Name:");
+        nameLabel.setFont(new Font("Monospaced", Font.BOLD, 30));
         nameLabel.setForeground(Color.YELLOW);
-        nameLabel.setFont(new Font("Monospaced", Font.BOLD, 20));
-        center.add(nameLabel, gbc);
+        nameLabel.setBounds(frameWidth / 3, 210, 400, 40);
+        contentpane.add(nameLabel);
 
-        // Name text field
-        gbc.gridy++;
         JTextField nameField = new JTextField();
         nameField.setFont(new Font("Monospaced", Font.BOLD, 26));
-        nameField.setForeground(new Color(0, 0, 128)); // กรมท่า
+        nameField.setForeground(new Color(0, 0, 128));
         nameField.setHorizontalAlignment(SwingConstants.CENTER);
-        center.add(nameField, gbc);
+        nameField.setBounds(frameWidth / 3, 260, 400, 50);
+        nameField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128), 10, true));      
+        contentpane.add(nameField);
 
-        // "Choose Icon" label
-        gbc.gridy++;
-        JLabel iconLabel = new JLabel("Choose Icon:", SwingConstants.CENTER);
-        iconLabel.setForeground(Color.YELLOW);
+        // ==========================================================
+        // Choose Icon (Spinner)
+        // ==========================================================
+        JLabel iconLabel = new JLabel("Choose Icon:");
         iconLabel.setFont(new Font("Monospaced", Font.BOLD, 20));
-        center.add(iconLabel, gbc);
+        iconLabel.setForeground(Color.YELLOW);
+        iconLabel.setBounds(frameWidth / 3, 330, 400, 40);
+        contentpane.add(iconLabel);
 
-        // Spinner
-        gbc.gridy++;
         String[] items = {"Icon 1", "Icon 2", "Icon 3"};
         JSpinner spinner = new JSpinner(new SpinnerListModel(items));
+        spinner.setBounds(frameWidth / 3, 380, 400, 50);
+
+        // spinner text style
         JComponent editor = spinner.getEditor();
         JFormattedTextField tf = ((JSpinner.DefaultEditor) editor).getTextField();
         tf.setFont(new Font("Monospaced", Font.BOLD, 24));
-        tf.setForeground(new Color(0, 0, 128)); // กรมท่า
+        tf.setForeground(new Color(0, 0, 128));
         tf.setHorizontalAlignment(SwingConstants.CENTER);
-        center.add(spinner, gbc);
+        tf.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128), 10, true)); 
 
-        // Preview label
-        JLabel preview = new JLabel("", SwingConstants.CENTER);
-        preview.setIcon(IconProvider.loadIcon(0, 150));
-        bgLabel.add(preview, BorderLayout.NORTH);
+        contentpane.add(spinner);
 
+        // update preview on spinner change
         spinner.addChangeListener(e -> {
-            SpinnerListModel model = (SpinnerListModel) spinner.getModel();
-            int idx = model.getList().indexOf(spinner.getValue());
+            int idx = ((SpinnerListModel) spinner.getModel())
+                    .getList().indexOf(spinner.getValue());
             preview.setIcon(IconProvider.loadIcon(idx, 150));
         });
 
-        // OK button
-        JButton ok = new JButton("OK");
-        ok.setFont(new Font("Monospaced", Font.BOLD, 22));
-        bgLabel.add(ok, BorderLayout.SOUTH);
+        // ==========================================================
+        // OK Button
+        // ==========================================================
+        menuButtonLabel ok = new menuButtonLabel(
+                constants.OKBUTTON,
+                constants.OKBUTTON_HOVER,
+                200, 60,
+                menu
+        );
+
+        ok.setBounds(
+                frameWidth - 200 - margin,
+                frameHeight - 75 - margin,
+                200,
+                60
+        );
+
+        ok.addMouseListener(new MouseAdapter() {
+            @Override public void mouseEntered(MouseEvent e) { ok.setAltIcon(); }
+            @Override public void mouseExited(MouseEvent e) { ok.setMainIcon(); }
+        });
 
         ok.addActionListener(e -> {
             String name = nameField.getText().trim();
             if (name.isEmpty()) name = "Anonymous";
 
-            int index = ((SpinnerListModel) spinner.getModel())
+            int iconIndex = ((SpinnerListModel) spinner.getModel())
                     .getList().indexOf(spinner.getValue());
 
-            manager.addScore(name, index, score);
+            manager.addScore(name, iconIndex, score);
+
             dispose();
 
             SwingUtilities.invokeLater(() ->
                     new ScoreboardDialog(game, manager, menu, parentDialog)
             );
         });
+
+        contentpane.add(ok);
 
         setVisible(true);
     }
