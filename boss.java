@@ -50,6 +50,20 @@ public abstract class boss extends JLabel implements Runnable {
         }
     }
 
+    // create a smaller hitbox inside a JLabel's bounds
+    // shrinkX, shrinkY are 0.0 – 1.0 (fraction to cut from EACH side)
+    protected Rectangle makeHitBox(JLabel src, double shrinkX, double shrinkY) {
+        Rectangle r = src.getBounds();
+        int dx = (int)(r.width  * shrinkX);
+        int dy = (int)(r.height * shrinkY);
+        return new Rectangle(
+                r.x + dx,
+                r.y + dy,
+                r.width  - 2 * dx,
+                r.height - 2 * dy
+        );
+    }
+
     // ---------- HP / damage ----------
         public void takeDamage(int dmg) {
         hp -= dmg;
