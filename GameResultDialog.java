@@ -23,6 +23,9 @@ public class GameResultDialog extends SelectionDialog {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         // Window Close
+        for (WindowListener wl : getWindowListeners()) {
+            removeWindowListener(wl);
+        }
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -53,7 +56,7 @@ public class GameResultDialog extends SelectionDialog {
             
             JLabel hpLabel = new JLabel("Player hp: " + hpremain + " / " + hpmax, SwingConstants.CENTER);
             hpLabel.setFont(new Font("Monospaced", Font.PLAIN, 36));
-            hpLabel.setForeground(Color.RED);
+            hpLabel.setForeground(Color.MAGENTA);
             hpLabel.setBounds(0, 320, frameWidth, 50);
             contentpane.add(hpLabel);
             
@@ -112,4 +115,3 @@ public class GameResultDialog extends SelectionDialog {
         setVisible(true);
     }
 }
-
