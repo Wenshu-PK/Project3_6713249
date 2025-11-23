@@ -105,7 +105,8 @@ public class mainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Clicked: exit");
-                dispose();
+                System.exit(0);
+
 
             }
 
