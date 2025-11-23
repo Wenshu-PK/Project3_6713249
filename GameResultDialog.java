@@ -36,36 +36,36 @@ public class GameResultDialog extends JDialog {
         });
 
         JLabel bgLabel = new JLabel(new MyImageIcon(constants.BG_END));
-bgLabel.setLayout(null); // ปิด layout manager
-setContentPane(bgLabel);
+            bgLabel.setLayout(null); // ปิด layout manager
+            setContentPane(bgLabel);
 
-// WIN/LOSE
-JLabel msg = new JLabel(win ? "YOU WIN!" : "YOU LOSE!", SwingConstants.CENTER);
-msg.setFont(new Font("Monospaced", Font.BOLD, 150)); 
-msg.setForeground(Color.YELLOW);
-// กำหนดตำแหน่งเอง
-msg.setBounds(0, 20, constants.frameWidth, 180);
-bgLabel.add(msg);
+        // WIN/LOSE
+        JLabel msg = new JLabel(win ? "YOU WIN!" : "YOU LOSE!", SwingConstants.CENTER);
+        msg.setFont(new Font("Monospaced", Font.BOLD, 150)); 
+        msg.setForeground(Color.YELLOW);
 
-if (win) {
-    int score = Math.max(0, 10000 / (time + 1) - 5 * dmg);
+        msg.setBounds(0, 20, constants.frameWidth, 180);
+        bgLabel.add(msg);
 
-    JLabel Score = new JLabel("Score: " + score, SwingConstants.CENTER);
-    Score.setFont(new Font("Monospaced", Font.PLAIN, 36));
-    Score.setForeground(Color.WHITE);
-    Score.setBounds(0, 220, constants.frameWidth, 50);
-    bgLabel.add(Score);
+        if (win) {
+        int score = Math.max(0, 10000 / (time + 1) - 5 * dmg);
 
-    // ปุ่ม Next
-    menuButtonLabel next = new menuButtonLabel(constants.NEXTBUTTON, constants.NEXTBUTTON_HOVER, 200, 60, menu);
-    next.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 75 - margin, 200, 60);
+        JLabel Score = new JLabel("Score: " + score, SwingConstants.CENTER);
+        Score.setFont(new Font("Monospaced", Font.PLAIN, 36));
+        Score.setForeground(Color.WHITE);
+        Score.setBounds(0, 220, constants.frameWidth, 50);
+        bgLabel.add(Score);
 
-    next.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseEntered(MouseEvent e) { next.setAltIcon(); }
-        @Override
-        public void mouseExited(MouseEvent e) { next.setMainIcon(); }
-    });
+        
+        menuButtonLabel next = new menuButtonLabel(constants.NEXTBUTTON, constants.NEXTBUTTON_HOVER, 200, 60, menu);
+            next.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 75 - margin, 200, 60);
+
+            next.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) { next.setAltIcon(); }
+            @Override
+            public void mouseExited(MouseEvent e) { next.setMainIcon(); }
+        });
 
     next.addActionListener(e -> {
         new NameAndIconDialog(game, game.getScoreManager(), score, menu, this);
