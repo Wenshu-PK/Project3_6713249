@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import java.awt.event.ItemEvent;
 import java.awt.Font;
+import java.awt.Color;
 
 /**
  *
@@ -22,7 +23,6 @@ public class playerselection extends SelectionDialog {
         super(bg_path, name, owner);
         playerselection pervious = this;
 
-        // === sizes & positions ===
         char1 = new JLabel();
         char1.setIcon(new MyImageIcon(constants.PLAYER_1).resize(charSize, charSize));
         char1.setBounds(char1X, charY, charSize, charSize);
@@ -35,12 +35,18 @@ public class playerselection extends SelectionDialog {
         char3.setIcon(new MyImageIcon(constants.PLAYER_3).resize(charSize, charSize));
         char3.setBounds(char3X, charY, charSize, charSize);
 
-        // === radio buttons (centered under each character) ===
-        jRadioButton1 = new JRadioButton("Player 1");
-        jRadioButton2 = new JRadioButton("Player 2");
-        jRadioButton3 = new JRadioButton("Player 3");
-
-        // transparent background for radios
+        jRadioButton1 = new JRadioButton("Max");
+        jRadioButton2 = new JRadioButton("Est");
+        jRadioButton3 = new JRadioButton("Louis");
+        
+        Font radioFont = new Font("Arial", Font.BOLD, 16); // or whatever you want
+        jRadioButton1.setFont(radioFont);
+        jRadioButton2.setFont(radioFont);
+        jRadioButton3.setFont(radioFont);
+        
+        jRadioButton1.setForeground(Color.WHITE);
+        jRadioButton2.setForeground(Color.WHITE);
+        jRadioButton3.setForeground(Color.WHITE);
         for (JRadioButton rb : new JRadioButton[]{jRadioButton1, jRadioButton2, jRadioButton3}) {
             rb.setOpaque(false);
             rb.setContentAreaFilled(false);
@@ -77,7 +83,6 @@ public class playerselection extends SelectionDialog {
                 rb3Size.height
         );
 
-        // hover effect for characters when radio selected
         jRadioButton1.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 char1.setIcon(new MyImageIcon(constants.PLAYER_1_HOVER).resize(charSize, charSize));
@@ -99,15 +104,8 @@ public class playerselection extends SelectionDialog {
                 char3.setIcon(new MyImageIcon(constants.PLAYER_3).resize(charSize, charSize));
             }
         });
-
         jRadioButton1.setSelected(true);
 
-        Font radioFont = new Font("Arial", Font.BOLD, 20);
-        jRadioButton1.setFont(radioFont);
-        jRadioButton2.setFont(radioFont);
-        jRadioButton3.setFont(radioFont);
-
-        // === buttons ===
         returnButton = new menuButtonLabel(constants.RETURNBUTTON, constants.RETURNBUTTON_HOVER, 200, 75, owner);
         returnButton.setInitialLocation(margin, constants.frameHeight - 75 - margin);
         returnButton.addMouseListener(new MouseAdapter() {
