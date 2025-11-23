@@ -66,6 +66,8 @@ interface constants {
     static final String BG_TABLE = PATH + "bg_table.png";
     static final String BACKBUTTON_HOVER = PATH + "C1back.png";
     static final String BACKBUTTON = PATH + "Back.png";
+    static final String BACKTOBUTTON_HOVER = PATH + "C1backtomenu.png";
+    static final String BACKTOBUTTON = PATH + "backtomenu.png";
 
     
     
