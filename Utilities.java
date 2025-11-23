@@ -7,6 +7,7 @@ interface constants {
 
     static final String PATH = "src/main/java/Project3_6713249/imageP/";
     static final String SOUND_PATH = "src/main/java/Project3_6713249/soundP/";
+    static final String PATHP = "src/main/java/Project3_6713249/";
     //static final String MENU_BG = PATH + "BACKGROUND.png";
     //static final String MENU_BG_MP4 = PATH + "BACKGROUND_MP4.mp4";
     static final String MENU_BG_GIF = PATH + "Background1.gif";
@@ -57,6 +58,18 @@ interface constants {
     static final String OKBUTTON_HOVER = PATH + "C1OK.png";
     
     static final String CREDIT = PATH + "BG_Credits.jpg";
+    
+    //selecticon
+    static final String ICON_1 = PATH + "icon1.png";
+    static final String ICON_2 = PATH + "icon2.png";
+    static final String ICON_3 = PATH + "icon3.png";
+    //end
+    static final String BG_END = PATH + "bg_end.png";
+    static final String BG_TABLE = PATH + "bg_table.png";
+    
+    
+    //Storage Data .csv
+    static final String TABLEFILE = PATHP + "scores.txt";
     
     // boss1 battle sprites
     static final String BOSS1_NORMAL    = PATH + "Boss1.png";
