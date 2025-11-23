@@ -209,7 +209,8 @@ class GameEngine extends JFrame {
         timePlayed = (gameEndTime - gameStartTime) / 1000;
         damageTaken = playerLabel.getMaxHP() - playerLabel.getHP(); 
         SwingUtilities.invokeLater(() -> {
-        new GameResultDialog(this, win, (int)timePlayed, damageTaken, menu);
+        new GameResultDialog(this, win, (int)timePlayed, damageTaken,playerLabel.getMaxHP(),playerLabel.getHP(), menu);
     });
     }
 }
+
