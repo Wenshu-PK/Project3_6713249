@@ -64,12 +64,12 @@ interface constants {
     //end
     static final String BG_END = PATH + "bg_end.png";
     static final String BG_TABLE = PATH + "bg_table.png";
-    static final String BACKBUTTON_HOVER = PATH + "Back.png";
+    static final String BACKBUTTON_HOVER = PATH + "C1back.png";
     static final String BACKBUTTON = PATH + "Back.png";
 
     
     
-    //Storage Data .csv
+    //Storage Data .txt
     static final String TABLEFILE = PATHP + "scores.txt";
     
     // boss1 battle sprites
