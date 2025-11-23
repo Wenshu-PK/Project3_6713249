@@ -2,6 +2,9 @@ package Project3_6713249;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 
 /**
  *
@@ -34,11 +37,16 @@ public class SelectionDialog extends JDialog {
     public SelectionDialog(String bg_path, String name, mainFrame owner) {
         super(owner, name);
         this.parentFrame = owner;
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0); 
+            }
+        });
 
         setSize(frameWidth, frameHeight);
         setLocationRelativeTo(null);
 
-        // background label as content pane
         contentpane = new JLabel();
         contentpane.setLayout(null);
         MyImageIcon background = new MyImageIcon(bg_path);
