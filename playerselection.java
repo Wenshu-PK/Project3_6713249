@@ -39,7 +39,7 @@ public class playerselection extends SelectionDialog {
         jRadioButton2 = new JRadioButton("Est");
         jRadioButton3 = new JRadioButton("Louis");
         
-        Font radioFont = new Font("Arial", Font.BOLD, 16); // or whatever you want
+        Font radioFont = new Font("Monospaced", Font.BOLD, 16); // or whatever you want
         jRadioButton1.setFont(radioFont);
         jRadioButton2.setFont(radioFont);
         jRadioButton3.setFont(radioFont);
