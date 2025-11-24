@@ -7,64 +7,6 @@ import java.io.File;
 import javax.sound.sampled.*;
 
 // ==========================================
-//  [Max] Kept MyConstants interface here for future use/reference, 
-//  even though main logic might use 'constants' from Utilities.java.
-// ==========================================
-/*interface MyConstants
-{
-    static final String PATH       = "src/main/java/Project3_6713249/imageP/";
-    // [Max] Resource Sound Paths
-    static final String SOUND_PATH = "src/main/java/Project3_6713249/soundP/";
-    
-    static final String FILE_BG             = PATH + "BG1_PlaySC.png";
-    // [Max] Backgrounds
-    static final String SETTING_BG          = PATH + "BG_setting.png"; 
-    
-    // [Max] Buttons
-    static final String SETTINGBUTTON       = PATH + "setting.png";
-    static final String SETTINGBUTTON_HOVER = PATH + "C1setting.png";
-    static final String EXITBUTTON          = PATH + "Exit.png";
-    static final String OKBUTTON            = PATH + "OK.png";        
-    static final String OKBUTTON_HOVER      = PATH + "C1OK.png";      
-    
-    static final String PlAYER_LEFT         = PATH + "player1_useGUN.png";
-    static final String PLAYER_RIGHT        = PATH + "girl_right.png";
-    static final String FILE_FRUIT          = PATH + "starfruits2.png";
-    static final String FILE_STAR           = PATH + "star.gif";    
-    
-    static final String FILE_THEME          = SOUND_PATH + "theme.wav";
-    static final String FILE_COLLECT_FX     = SOUND_PATH + "twotaps.wav";
-    static final String FILE_BOUNCE_FX      = SOUND_PATH + "beep.wav";
-    // [Max] Sounds Files
-    static final String SONG_TITANIUM       = SOUND_PATH + "titanium.wav";
-    static final String SONG_CREATIVE       = SOUND_PATH + "creative.wav";
-    static final String SONG_EONA           = SOUND_PATH + "eona.wav";
-    
-    static final int FRAME_WIDTH  = 1366;
-    static final int FRAME_HEIGHT = 768;
-    static final int GROUND_Y     = 568;
-    static final int PLAYER_WIDTH    = 150;
-    static final int PLAYER_HEIGHT   = 100;
-    static final int ITEM_WIDTH    = 40;
-    static final int ITEM_HEIGHT   = 40;   
-}
-*/
-
-/*
-class MyImageIcon extends ImageIcon
-{
-    public MyImageIcon(String fname)  { super(fname); }
-    public MyImageIcon(Image image)   { super(image); }
-
-    public MyImageIcon resize(int width, int height)
-    {
-        Image oldimg = this.getImage();
-        Image newimg = oldimg.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
-        return new MyImageIcon(newimg);
-    }
-}
-*/
-// ==========================================
 //  [Max] 
 // ==========================================
 class MySoundEffect
@@ -129,13 +71,14 @@ class settingDialog extends SelectionDialog {
     private int dialogHeight = 450;
 
     // [Max] Added arrays to map display names to actual file paths for the ComboBox.
-    private String[] musicNames = {"Titanium", "Creative", "Eona", "Silent"};
+    private String[] musicNames = {"Cosmic", "Titanium", "Creative", "Eona", "Silent"};
     
     // [Max] Using 'constants' interface (likely from Utilities.java) for consistency.
     private String[] musicFiles = {
+        constants.SONG_COSMIC,
         constants.SONG_TITANIUM, 
         constants.SONG_CREATIVE, 
-        constants.SONG_EONA, 
+        constants.SONG_EONA,
         null
     };
 
