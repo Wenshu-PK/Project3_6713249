@@ -173,7 +173,7 @@ public class mainFrame extends JFrame {
         contentpane.add(howbutton);
        
         // [Max] Added line to start playing the default theme song immediately when the menu loads.
-        playTheme(constants.SONG_TITANIUM);
+        playTheme(constants.SONG_COSMIC);
 
     }
     

@@ -116,6 +116,7 @@ interface constants {
     static final String SONG_TITANIUM       = SOUND_PATH + "titanium.wav";
     static final String SONG_CREATIVE       = SOUND_PATH + "creative.wav";
     static final String SONG_EONA           = SOUND_PATH + "eona.wav";
+    static final String SONG_COSMIC         = SOUND_PATH + "cosmic.wav";
     
     // [Max] Added constant for the Settings dialog background image.
     static final String SETTING_BG          = PATH + "BG_setting.png"; 
