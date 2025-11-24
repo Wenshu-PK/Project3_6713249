@@ -74,19 +74,19 @@ public class boss2 extends boss {
             maxHP = hp = 220;
             moveSpeed = 3;
             contactDamage = 8;
-            attackInterval  = 6000;
+            attackInterval  = 2500;
             prepDelayMs     = 900;
         } else if (difficulty == 1) {   // Normal
             maxHP = hp = 260;
             moveSpeed = 4;
             contactDamage = 12;
-            attackInterval  = 2300;
+            attackInterval  = 2100;
             prepDelayMs     = 750;
         } else {                        // Hard
             maxHP = hp = 300;
             moveSpeed = 5;
             contactDamage = 16;
-            attackInterval  = 1900;
+            attackInterval  = 1700;
             prepDelayMs     = 600;
         }
     }
