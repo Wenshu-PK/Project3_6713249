@@ -27,6 +27,7 @@ class GameEngine extends JFrame {
     private int framewidth = constants.frameWidth;
     private int frameheight = constants.frameHeight;
     private int damageTaken;
+    private int diff;
     private double chargeStartTime;
     private double gameStartTime;
     private double gameEndTime;
@@ -88,7 +89,7 @@ class GameEngine extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         currentFrame = this;
         this.iRunning = true;
-        
+        this.diff = d;
         this.menu = menu;
         
         contentpane = (JPanel) getContentPane();
@@ -147,7 +148,7 @@ class GameEngine extends JFrame {
             public void keyTyped(KeyEvent e) {}
         });
         this.addMouseListener(new MouseAdapter() {
-            @Override
+           /*@Override
             public void mouseClicked(MouseEvent e) {
                 int finalX = e.getX();
                 int finalY = e.getY();
@@ -157,7 +158,7 @@ class GameEngine extends JFrame {
                 Thread pProjThread = new Thread(pProj); 
                 pProjThread.start();
                 gunLabel.gCharging(false);
-            }
+            }*/
             @Override
             public void mousePressed(MouseEvent e) {
                 charging = true;
@@ -174,7 +175,7 @@ class GameEngine extends JFrame {
                     charging = false;
                     gunLabel.gCharging(false);
                     double chargeDuration = System.currentTimeMillis() - chargeStartTime;
-                    if(chargeDuration >= 4000)
+                    if(chargeDuration >= 3000)
                     {
                         playerProjLabel pLProj = new playerProjLabel(currentFrame, bossLabel, playerLabel, 2, finalX, finalY);
                         drawpane.add(pLProj);
@@ -203,13 +204,15 @@ class GameEngine extends JFrame {
         validate();
     }
     public void GameEnd(boolean win)
-    {
+    {   
         iRunning = false;
         gameEndTime = System.currentTimeMillis();
         timePlayed = (gameEndTime - gameStartTime) / 1000;
         damageTaken = playerLabel.getMaxHP() - playerLabel.getHP(); 
         SwingUtilities.invokeLater(() -> {
-        new GameResultDialog(this, win, (int)timePlayed, damageTaken,playerLabel.getMaxHP(),playerLabel.getHP(), menu);
+        new GameResultDialog(this, win, (int)timePlayed, damageTaken,playerLabel.getMaxHP(),playerLabel.getHP(), menu, diff);
+        
+        
     });
     }
 }
