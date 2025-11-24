@@ -9,30 +9,32 @@ public class GameResultDialog extends SelectionDialog {
     private GameEngine game;
     private mainFrame menu;
 
-    public GameResultDialog(GameEngine gaame, boolean win, int time, int dmg, int hpmax,int hpremain ,mainFrame owner) {
-
+    public GameResultDialog(GameEngine gaame, boolean win, int time, int dmg, int hpmax, int hpremain, mainFrame owner,int d) {
         // --------------------------
         // parent constructor
         // --------------------------
         super(constants.BG_END, "Result", owner);
+        GameResultDialog current = this;
 
         this.game = gaame;
         this.menu = owner;
 
-        setModal(true);  
+        setModal(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         // Window Close
-        for (WindowListener wl : getWindowListeners()) {
+        /*for (WindowListener wl : getWindowListeners()) {
             removeWindowListener(wl);
         }
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                if (game != null) game.dispose();
+                if (game != null) {
+                    game.dispose();
+                }
                 menu.setVisible(true);
             }
-        });
+        });*/
 
         // ----------------------------------------------------
         // contentpane ( SelectionDialog)
@@ -46,25 +48,26 @@ public class GameResultDialog extends SelectionDialog {
         // WIN CASE
         if (win) {
 
-            int score = Math.max(0, 10000 / (time + 1) - 5 * dmg);
+            int score = Math.max(0, (1000000/ (time +dmg))*(d+1) );
 
             JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
             scoreLabel.setFont(new Font("Monospaced", Font.PLAIN, 36));
             scoreLabel.setForeground(Color.WHITE);
             scoreLabel.setBounds(0, 220, frameWidth, 50);
             contentpane.add(scoreLabel);
-            
+
             JLabel hpLabel = new JLabel("Player hp: " + hpremain + " / " + hpmax, SwingConstants.CENTER);
             hpLabel.setFont(new Font("Monospaced", Font.PLAIN, 36));
-            hpLabel.setForeground(Color.MAGENTA);
+            hpLabel.setForeground(Color.RED);
             hpLabel.setBounds(0, 320, frameWidth, 50);
             contentpane.add(hpLabel);
-            
+
             JLabel TLabel = new JLabel("Survival Time: " + time + " s ", SwingConstants.CENTER);
             TLabel.setFont(new Font("Monospaced", Font.PLAIN, 36));
             TLabel.setForeground(Color.CYAN);
             TLabel.setBounds(0, 420, frameWidth, 50);
             contentpane.add(TLabel);
+            
 
             menuButtonLabel next = new menuButtonLabel(
                     constants.NEXTBUTTON, constants.NEXTBUTTON_HOVER,
@@ -75,14 +78,20 @@ public class GameResultDialog extends SelectionDialog {
 
             next.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mouseEntered(MouseEvent e) { next.setAltIcon(); }
-                @Override
-                public void mouseExited(MouseEvent e) { next.setMainIcon(); }
-            });
+                public void mouseClicked(MouseEvent e) {
+                    current.dispose();
+                    new NameAndIconDialog(game, game.getScoreManager(), score, menu); }
 
-            next.addActionListener(e -> 
-                new NameAndIconDialog(game, game.getScoreManager(), score, menu, GameResultDialog.this)
-            );
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    next.setAltIcon();
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    next.setMainIcon();
+                }
+            });
 
             contentpane.add(next);
 
@@ -98,9 +107,14 @@ public class GameResultDialog extends SelectionDialog {
 
             back.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mouseEntered(MouseEvent e) { back.setAltIcon(); }
+                public void mouseEntered(MouseEvent e) {
+                    back.setAltIcon();
+                }
+
                 @Override
-                public void mouseExited(MouseEvent e) { back.setMainIcon(); }
+                public void mouseExited(MouseEvent e) {
+                    back.setMainIcon();
+                }
             });
 
             back.addActionListener(e -> {
