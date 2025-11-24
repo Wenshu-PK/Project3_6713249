@@ -8,14 +8,14 @@ public class NameAndIconDialog extends SelectionDialog {
 
     private mainFrame menu;
     private GameEngine game;
-    private JDialog parentDialog;
+    private GameResultDialog parentDialog;
 
     public NameAndIconDialog(
             GameEngine gaame,
             ScoreManager manager,
             int score,
-            mainFrame owner,
-            JDialog parent
+            mainFrame owner
+            
     ) {
 
         // ---------------------------------
@@ -25,13 +25,13 @@ public class NameAndIconDialog extends SelectionDialog {
 
         this.game = gaame;
         this.menu = owner;
-        this.parentDialog = parent;
+        
 
         setModal(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         // Handle closing
-        for (WindowListener wl : getWindowListeners()) {
+        /*for (WindowListener wl : getWindowListeners()) {
             removeWindowListener(wl);
         }
         addWindowListener(new WindowAdapter() {
@@ -41,7 +41,7 @@ public class NameAndIconDialog extends SelectionDialog {
                 if (game != null) game.dispose();
                 menu.setVisible(true);
             }
-        });
+        });*/
 
         // ==========================================================
         // PREVIEW ICON
@@ -132,8 +132,7 @@ public class NameAndIconDialog extends SelectionDialog {
             dispose();
 
             SwingUtilities.invokeLater(() ->
-                    new ScoreboardDialog(game, manager, menu, parentDialog)
-            );
+                    new ScoreboardDialog(game, manager, menu));
         });
 
         contentpane.add(ok);
