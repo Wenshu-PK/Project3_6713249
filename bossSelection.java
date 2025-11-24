@@ -46,7 +46,7 @@ public class bossSelection extends SelectionDialog {
         jRadioButton1.setForeground(Color.WHITE);
         jRadioButton2.setForeground(Color.WHITE);
 
-        Font radioFont = new Font("Arial", Font.BOLD, 16); // or whatever you want
+        Font radioFont = new Font("Monospaced", Font.BOLD, 16); // or whatever you want
         jRadioButton1.setFont(radioFont);
         jRadioButton2.setFont(radioFont);
 
