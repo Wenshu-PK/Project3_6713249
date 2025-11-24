@@ -310,9 +310,9 @@ class playerProjLabel extends JLabel implements Runnable
         switch (bulletType)
         {
             case 1: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE1); dimension = constants.SMALL_PLAYER_PROJECTILE_DIMENSION; 
-                     damage = 4; speed = 4; break;}
+                     damage = 1; speed = 4; break;}
             case 2: {proImg = new MyImageIcon(constants.PLAYER_PROJ_IMAGE2); dimension = constants.BIG_PLAYER_PROJECTILE_DIMENSION; 
-                     damage = 30; speed = 2; break;}
+                     damage = 60; speed = 2; break;}
         }
         if(curY > finalY)
         {
