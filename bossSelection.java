@@ -98,9 +98,9 @@ public class bossSelection extends SelectionDialog {
         returnButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
-                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
-                    
+
+                if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
+
                     JLabel msg2 = new JLabel("Can't click");
                     msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
                     msg2.setForeground(Color.RED);
@@ -108,13 +108,25 @@ public class bossSelection extends SelectionDialog {
                     contentpane.add(msg2);
                     contentpane.revalidate();   // <== สำคัญ
                     contentpane.repaint();
+                    
+                    new javax.swing.Timer(2000, ev -> {
+                        contentpane.remove(msg2);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+                    }) {
+                        {
+                            setRepeats(false);   // ให้ทำครั้งเดียว
+                        }
+                    }.start();
+                    
                     System.out.println("click So sad ");
                     return; // 
+                    
                 }
                 System.out.println("Clicked: return");
                 prevois.setVisible(true);
                 dispose();
-                
+
             }
 
             @Override
@@ -140,7 +152,7 @@ public class bossSelection extends SelectionDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int boss_selected;
-                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
+                if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
                     JLabel msg2 = new JLabel("Can't click");
                     msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
                     msg2.setForeground(Color.RED);
@@ -148,11 +160,21 @@ public class bossSelection extends SelectionDialog {
                     contentpane.add(msg2);
                     contentpane.revalidate();   // <== สำคัญ
                     contentpane.repaint();
-                    
+
+                    new javax.swing.Timer(2000, ev -> {
+                        contentpane.remove(msg2);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+                    }) {
+                        {
+                            setRepeats(false);   // ให้ทำครั้งเดียว
+                        }
+                    }.start();
+
                     System.out.println("click ignored");
                     return; // 
                 }
-                
+
                 if (jRadioButton1.isSelected()) {
                     System.out.println("Player 1 selected");
                     boss_selected = 1;

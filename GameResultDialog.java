@@ -85,6 +85,16 @@ public class GameResultDialog extends SelectionDialog {
                         contentpane.add(msg2);
                         contentpane.revalidate();
                         contentpane.repaint();
+                        
+                        new javax.swing.Timer(2000, ev -> {
+                        contentpane.remove(msg2);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+                    }) {
+                        {
+                            setRepeats(false);   // ให้ทำครั้งเดียว
+                        }
+                    }.start();
 
                         System.out.println("click ignored");
                         return; // 
@@ -126,6 +136,16 @@ public class GameResultDialog extends SelectionDialog {
                         contentpane.add(msg2);
                         contentpane.revalidate();
                         contentpane.repaint();
+                        
+                        new javax.swing.Timer(2000, ev -> {
+                        contentpane.remove(msg2);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+                    }) {
+                        {
+                            setRepeats(false);   // ให้ทำครั้งเดียว
+                        }
+                    }.start();
 
                         System.out.println("click ignored");
                         return; // 

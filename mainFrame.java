@@ -17,7 +17,7 @@ public class mainFrame extends JFrame {
     private final int SPACING_X = 100;
     private final int SPACING_Y = 30;
     private final int ROW1_Y = 380;
-    private ArrayList<JLabel> clickMessages = new ArrayList<>();
+   
 
     // [Max] Added sound management variables to handle background music and volume state globally.
     private MySoundEffect currentThemeSound;
@@ -65,7 +65,17 @@ public class mainFrame extends JFrame {
                     contentpane.add(msg3);
                     contentpane.revalidate();
                     contentpane.repaint();
-                    clickMessages.add(msg3);
+                    
+                    
+                    new javax.swing.Timer(2000, ev -> {
+                        contentpane.remove(msg3);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+                    }) {
+                        {
+                            setRepeats(false);   // ให้ทำครั้งเดียว
+                        }
+                    }.start();
                     
                     System.out.println("click ignored");
                     return;
@@ -74,7 +84,7 @@ public class mainFrame extends JFrame {
                 setVisible(false);
 
                 new playerselection(constants.PLAYER_BG, "Player Selction", menuframe);
-                menuframe.clearClickMessages();
+               
 
             }
 
@@ -110,7 +120,17 @@ public class mainFrame extends JFrame {
                     contentpane.add(msg3);
                     contentpane.revalidate();
                     contentpane.repaint();
-                    clickMessages.add(msg3);
+                  
+                    
+                    new javax.swing.Timer(2000, ev -> {
+                        contentpane.remove(msg3);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+                    }) {
+                        {
+                            setRepeats(false);   // ให้ทำครั้งเดียว
+                        }
+                    }.start();
                     
                     System.out.println("click ignored");
                     return;
@@ -121,7 +141,7 @@ public class mainFrame extends JFrame {
                 // setVisible(false);  <-- [Max] Commented out or removed.
                 // [Max] Added instantiation of settingDialog as a modal popup on top of the menu.
                 new settingDialog(constants.SETTING_BG, "Settings", menuframe);
-                menuframe.clearClickMessages();
+                
             }
 
             @Override
@@ -154,7 +174,17 @@ public class mainFrame extends JFrame {
                     contentpane.add(msg3);
                     contentpane.revalidate();
                     contentpane.repaint();
-                    clickMessages.add(msg3);
+                   
+                    
+                    new javax.swing.Timer(2000, ev -> {
+                        contentpane.remove(msg3);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+                    }) {
+                        {
+                            setRepeats(false);   // ให้ทำครั้งเดียว
+                        }
+                    }.start();
                     
                     System.out.println("click ignored");
                     return;
@@ -192,7 +222,17 @@ public class mainFrame extends JFrame {
                     contentpane.add(msg3);
                     contentpane.revalidate();
                     contentpane.repaint();
-                    clickMessages.add(msg3);
+                    
+                    
+                    new javax.swing.Timer(2000, ev -> {
+                        contentpane.remove(msg3);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+                    }) {
+                        {
+                            setRepeats(false);   // ให้ทำครั้งเดียว
+                        }
+                    }.start();
                     
                     System.out.println("click ignored");
                     return;
@@ -200,7 +240,7 @@ public class mainFrame extends JFrame {
                 System.out.println("Clicked: credit");
                 setVisible(false);
                 new creditDialog(constants.CREDIT, "Credit", menuframe);
-                menuframe.clearClickMessages();
+              
 
             }
 
@@ -232,7 +272,15 @@ public class mainFrame extends JFrame {
                     contentpane.add(msg3);
                     contentpane.revalidate();
                     contentpane.repaint();
-                    clickMessages.add(msg3);
+                    new javax.swing.Timer(2000, ev -> {
+                        contentpane.remove(msg3);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+                    }) {
+                        {
+                            setRepeats(false);   // ให้ทำครั้งเดียว
+                        }
+                    }.start();
                     
                     System.out.println("click ignored");
                     return;
@@ -240,7 +288,7 @@ public class mainFrame extends JFrame {
                 System.out.println("Clicked: how to play");
                 setVisible(false);
                 new howtoplayDialog(constants.HOWTOPLAT_BG, "HOw to play", menuframe);
-                menuframe.clearClickMessages();
+                
 
             }
 
@@ -266,14 +314,7 @@ public class mainFrame extends JFrame {
 
     }
     
-    public void clearClickMessages() {
-        for (JLabel lbl : clickMessages) {
-            contentpane.remove(lbl);
-        }
-        clickMessages.clear();
-        contentpane.revalidate();
-        contentpane.repaint();
-    }
+
     
     // [Max] Added method to switch background music dynamically (called from SettingDialog).
     public void playTheme(String filePath) {
