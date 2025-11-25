@@ -5,11 +5,6 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
-/**
- *
- * @author sawan
- */
 public class SelectionDialog extends JDialog {
 
     protected int frameWidth = constants.frameWidth;
@@ -46,6 +41,7 @@ public class SelectionDialog extends JDialog {
 
         setSize(frameWidth, frameHeight);
         setLocationRelativeTo(null);
+        setResizable(false);
 
         contentpane = new JLabel();
         contentpane.setLayout(null);
