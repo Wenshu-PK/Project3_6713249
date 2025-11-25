@@ -40,6 +40,7 @@ public class mainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+        setResizable(false);
         this.requestFocus();
 
         setContentPane(contentpane = new JLabel());
@@ -344,3 +345,4 @@ public class mainFrame extends JFrame {
 
     // ... (Other parts of mainFrame) ..
 }
+
