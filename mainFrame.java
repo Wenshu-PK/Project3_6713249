@@ -288,7 +288,7 @@ public class mainFrame extends JFrame {
                 }
                 System.out.println("Clicked: how to play");
                 setVisible(false);
-                new howtoplayDialog(constants.HOWTOPLAT_BG, "HOw to play", menuframe);
+                new howtoplayDialog(constants.HOWTOPLAT_BG, "How to play", menuframe);
                 
 
             }
@@ -345,4 +345,5 @@ public class mainFrame extends JFrame {
 
     // ... (Other parts of mainFrame) ..
 }
+
 
