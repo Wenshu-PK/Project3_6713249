@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Project3_6713249;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- *
- * @author iamja
- */
 class PlayerLabel extends JLabel implements Runnable
 {
     
@@ -219,11 +211,8 @@ class HPBar extends JLabel
                 setBounds(350, 560, width, height);
                 break;
         }
-        
         setOpaque(false); // allow transparency
-        
     }
-    
 
     @Override
     protected void paintComponent(Graphics g)
@@ -437,3 +426,4 @@ class GunLabel extends JLabel
     }
 
 }
+
