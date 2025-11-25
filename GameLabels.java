@@ -56,12 +56,8 @@ class PlayerLabel extends JLabel implements Runnable
             setIcon(shotRight);
         }
         HPBar.updateHP(hp);
-        move= false;
         repaint();
     }
-    
-    
-    
     public PlayerLabel(GameEngine pf, int playerType)
     {
         parentFrame = pf;
@@ -109,6 +105,8 @@ class PlayerLabel extends JLabel implements Runnable
                 repaint();
                 parentFrame.GameEnd(false);
             }
+            try { Thread.sleep(35); } 
+            catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
     public void updateLocation(boolean m, int d)
@@ -144,7 +142,7 @@ class PlayerLabel extends JLabel implements Runnable
             
             if(curX + width -75 < 0)
             {
-                curX = 5;
+                curX = 3;
             }
             if(jumping == true)
             {
@@ -173,8 +171,7 @@ class PlayerLabel extends JLabel implements Runnable
         }
         setLocation(curX, curY);
         repaint();
-        try { Thread.sleep(35); } 
-        catch (InterruptedException e) { e.printStackTrace(); }
+        
     }
     public void jump(boolean c) {
         if (!jumping && curY == constants.GROUND_Y && !c) {
