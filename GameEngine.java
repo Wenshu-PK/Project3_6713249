@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Project3_6713249;
 
-//Anun Luechaphongthip 6713253
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -72,7 +67,6 @@ class GameEngine extends JFrame {
         } else if (bossType == 2) {
             bossLabel = new boss2(this, difficulty);
         }
-        // else if (bossType == 3) bossLabel = new boss3(this, difficulty);
 
         if (bossLabel != null) {
             // add boss to the game area
@@ -88,6 +82,7 @@ class GameEngine extends JFrame {
         setTitle("Chocolate Hunter: Battle");
         setSize(framewidth, frameheight);
         setLocationRelativeTo(null);
+        setResizable(false);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         currentFrame = this;
@@ -158,25 +153,10 @@ class GameEngine extends JFrame {
             }
         });
         this.addMouseListener(new MouseAdapter() {
-            /*@Override
-            public void mouseClicked(MouseEvent e) {
-                if(e.getButton() == MouseEvent.BUTTON2)
-                {
-                    int finalX = e.getX();
-                    int finalY = e.getY();
-                    gunLabel.gCharging(true);
-                    playerProjLabel pProj = new playerProjLabel(currentFrame, bossLabel, playerLabel, 1, finalX, finalY);
-                    drawpane.add(pProj);
-                    Thread pProjThread = new Thread(pProj); 
-                    pProjThread.start();
-                    gunLabel.gCharging(false);
-                }
-            }*/
             @Override
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
                     return;
-                    
                 }
                 charging = true;
                 gunLabel.gCharging(true);
@@ -184,13 +164,11 @@ class GameEngine extends JFrame {
                 chargeStartTime = System.currentTimeMillis();
                 double chargeDuration = System.currentTimeMillis() - chargeStartTime;
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
                     return;
                 }
-
                 if (charging) {
                     int finalX = e.getX();
                     int finalY = e.getY();
@@ -212,7 +190,7 @@ class GameEngine extends JFrame {
                 }
             }
         });
-
+        
         bossHPBar = new HPBar(currentFrame, 1, bossLabel.getMaxHP());
         drawpane.add(bossHPBar);
         playerHPBar = new HPBar(currentFrame, 2, playerLabel.getMaxHP());
@@ -246,3 +224,4 @@ class GameEngine extends JFrame {
         });
     }
 }
+
