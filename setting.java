@@ -6,9 +6,7 @@ import java.awt.event.*;
 import java.io.File;
 import javax.sound.sampled.*;
 
-// ==========================================
 //  [Max] 
-// ==========================================
 class MySoundEffect
 {
     private Clip           clip;
@@ -57,9 +55,7 @@ class MySoundEffect
     }
 }
 
-// ==========================================
 // [Max]
-// ==========================================
 class settingDialog extends SelectionDialog {
 
     private menuButtonLabel okButton;
@@ -86,7 +82,7 @@ class settingDialog extends SelectionDialog {
         super(bg_path, name, owner); 
 
         // --- 1. Window Setup ---
-        setTitle(name);
+        setUndecorated(true);
         setSize(dialogWidth, dialogHeight); 
         setLocationRelativeTo(owner);       
         setModal(true); // [Max] Set as Modal so the user cannot interact with the main menu while settings are open.
