@@ -3,6 +3,11 @@ package Project3_6713249;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.JLabel;
+import java.awt.*;
+
 
 public class creditDialog extends SelectionDialog {
     
@@ -13,6 +18,19 @@ public class creditDialog extends SelectionDialog {
         returnButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
+                    JLabel msg2 = new JLabel("Can't click");
+                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
+                    msg2.setForeground(Color.RED);
+                    msg2.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 190 - margin, frameWidth, 180);
+                    contentpane.add(msg2);
+                    contentpane.revalidate();  
+                    contentpane.repaint();
+                    
+                    System.out.println("click ignored");
+                    return; // 
+                }
+                
                 System.out.println("Clicked: ok");
                 owner.setVisible(true);
                 dispose();

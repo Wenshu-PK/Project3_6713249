@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import javax.swing.ButtonGroup;
+import javax.swing.*;
+import java.awt.event.*;
 
 public class bossSelection extends SelectionDialog {
 
@@ -96,9 +98,23 @@ public class bossSelection extends SelectionDialog {
         returnButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                
+                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
+                    
+                    JLabel msg2 = new JLabel("Can't click");
+                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
+                    msg2.setForeground(Color.RED);
+                    msg2.setBounds(margin, constants.frameHeight - 190 - margin, frameWidth, 180);
+                    contentpane.add(msg2);
+                    contentpane.revalidate();   // <== สำคัญ
+                    contentpane.repaint();
+                    System.out.println("click So sad ");
+                    return; // 
+                }
                 System.out.println("Clicked: return");
                 prevois.setVisible(true);
                 dispose();
+                
             }
 
             @Override
@@ -124,6 +140,19 @@ public class bossSelection extends SelectionDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int boss_selected;
+                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
+                    JLabel msg2 = new JLabel("Can't click");
+                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
+                    msg2.setForeground(Color.RED);
+                    msg2.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 190 - margin, frameWidth, 180);
+                    contentpane.add(msg2);
+                    contentpane.revalidate();   // <== สำคัญ
+                    contentpane.repaint();
+                    
+                    System.out.println("click ignored");
+                    return; // 
+                }
+                
                 if (jRadioButton1.isSelected()) {
                     System.out.println("Player 1 selected");
                     boss_selected = 1;

@@ -37,6 +37,12 @@ public class ScoreboardDialog extends SelectionDialog {
         msg.setForeground(Color.YELLOW);
         msg.setBounds(frameWidth / 3 + 10, -25, frameWidth, 180);
         contentpane.add(msg);
+        
+        JLabel msg2 = new JLabel("SCORE⌂BOARD");
+        msg2.setFont(new Font("Monospaced", Font.BOLD, 50));
+        msg2.setForeground(Color.lightGray);
+        msg2.setBounds(frameWidth / 3 + 7, -23, frameWidth, 180);
+        contentpane.add(msg2);
 
         DefaultTableModel model = new DefaultTableModel(cols, 0) {
             @Override
@@ -87,6 +93,21 @@ public class ScoreboardDialog extends SelectionDialog {
         back.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                
+                
+                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
+                    JLabel msg1 = new JLabel("Can't click");
+                    msg1.setFont(new Font("Monospaced", Font.BOLD, 20));
+                    msg1.setForeground(Color.RED);
+                    msg1.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 190 - margin, frameWidth, 180);
+                    contentpane.add(msg1);
+                    contentpane.revalidate();   // <== สำคัญ
+                    contentpane.repaint();
+                    
+                    System.out.println("click ignored");
+                    return; // 
+                }
+                
                 menu.setVisible(true);
                 dispose();          // close Scoreboard
                 

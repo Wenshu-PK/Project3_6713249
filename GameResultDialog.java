@@ -9,7 +9,7 @@ public class GameResultDialog extends SelectionDialog {
     private GameEngine game;
     private mainFrame menu;
 
-    public GameResultDialog(GameEngine gaame, boolean win, int time, int dmg, int hpmax, int hpremain, mainFrame owner,int d) {
+    public GameResultDialog(GameEngine gaame, boolean win, int time, int dmg, int hpmax, int hpremain, mainFrame owner, int d) {
         // --------------------------
         // parent constructor
         // --------------------------
@@ -35,7 +35,6 @@ public class GameResultDialog extends SelectionDialog {
                 menu.setVisible(true);
             }
         });*/
-
         // ----------------------------------------------------
         // contentpane ( SelectionDialog)
         // ----------------------------------------------------
@@ -48,7 +47,7 @@ public class GameResultDialog extends SelectionDialog {
         // WIN CASE
         if (win) {
 
-            int score = Math.max(0, (1000000/ (time +dmg))*(d+1) );
+            int score = Math.max(0, (1000000 / (time + dmg)) * (d + 1));
 
             JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
             scoreLabel.setFont(new Font("Monospaced", Font.PLAIN, 36));
@@ -67,7 +66,6 @@ public class GameResultDialog extends SelectionDialog {
             TLabel.setForeground(Color.CYAN);
             TLabel.setBounds(0, 420, frameWidth, 50);
             contentpane.add(TLabel);
-            
 
             menuButtonLabel next = new menuButtonLabel(
                     constants.NEXTBUTTON, constants.NEXTBUTTON_HOVER,
@@ -79,8 +77,21 @@ public class GameResultDialog extends SelectionDialog {
             next.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
+                        JLabel msg2 = new JLabel("Can't click");
+                        msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
+                        msg2.setForeground(Color.RED);
+                        msg2.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 190 - margin, frameWidth, 180);
+                        contentpane.add(msg2);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+
+                        System.out.println("click ignored");
+                        return; // 
+                    }
                     current.dispose();
-                    new NameAndIconDialog(game, game.getScoreManager(), score, menu); }
+                    new NameAndIconDialog(game, game.getScoreManager(), score, menu);
+                }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
@@ -106,6 +117,24 @@ public class GameResultDialog extends SelectionDialog {
             back.setBounds(frameWidth - 200 - margin, frameHeight - 75 - margin, 200, 60);
 
             back.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
+                        JLabel msg2 = new JLabel("Can't click");
+                        msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
+                        msg2.setForeground(Color.RED);
+                        msg2.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 190 - margin, frameWidth, 180);
+                        contentpane.add(msg2);
+                        contentpane.revalidate();
+                        contentpane.repaint();
+
+                        System.out.println("click ignored");
+                        return; // 
+                    }
+                    dispose();
+                    game.dispose();
+                    menu.setVisible(true);
+                }
+
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     back.setAltIcon();
@@ -115,12 +144,6 @@ public class GameResultDialog extends SelectionDialog {
                 public void mouseExited(MouseEvent e) {
                     back.setMainIcon();
                 }
-            });
-
-            back.addActionListener(e -> {
-                dispose();
-                game.dispose();
-                menu.setVisible(true);
             });
 
             contentpane.add(back);

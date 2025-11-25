@@ -15,7 +15,6 @@ public class NameAndIconDialog extends SelectionDialog {
             ScoreManager manager,
             int score,
             mainFrame owner
-            
     ) {
 
         // ---------------------------------
@@ -25,7 +24,6 @@ public class NameAndIconDialog extends SelectionDialog {
 
         this.game = gaame;
         this.menu = owner;
-        
 
         setModal(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -42,7 +40,6 @@ public class NameAndIconDialog extends SelectionDialog {
                 menu.setVisible(true);
             }
         });*/
-
         // ==========================================================
         // PREVIEW ICON
         // ==========================================================
@@ -65,7 +62,7 @@ public class NameAndIconDialog extends SelectionDialog {
         nameField.setForeground(new Color(0, 0, 128));
         nameField.setHorizontalAlignment(SwingConstants.CENTER);
         nameField.setBounds(frameWidth / 3, 260, 400, 50);
-        nameField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128), 10, true));      
+        nameField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128), 10, true));
         contentpane.add(nameField);
 
         // ==========================================================
@@ -87,7 +84,7 @@ public class NameAndIconDialog extends SelectionDialog {
         tf.setFont(new Font("Monospaced", Font.BOLD, 24));
         tf.setForeground(new Color(0, 0, 128));
         tf.setHorizontalAlignment(SwingConstants.CENTER);
-        tf.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128), 10, true)); 
+        tf.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128), 10, true));
 
         contentpane.add(spinner);
 
@@ -116,23 +113,52 @@ public class NameAndIconDialog extends SelectionDialog {
         );
 
         ok.addMouseListener(new MouseAdapter() {
-            @Override public void mouseEntered(MouseEvent e) { ok.setAltIcon(); }
-            @Override public void mouseExited(MouseEvent e) { ok.setMainIcon(); }
+            
+            
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
+                    JLabel msg2 = new JLabel("Can't click");
+                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
+                    msg2.setForeground(Color.RED);
+                    msg2.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 190 - margin, frameWidth, 180);
+                    contentpane.add(msg2);
+                    contentpane.revalidate();   // <== สำคัญ
+                    contentpane.repaint();
+                    
+                    System.out.println("click ignored");
+                    return; // 
+                }
+                
+                String name = nameField.getText().trim();
+                if (name.isEmpty()) {
+                    name = "Anonymous";
+                }
+
+                int iconIndex = ((SpinnerListModel) spinner.getModel())
+                        .getList().indexOf(spinner.getValue());
+
+                manager.addScore(name, iconIndex, score);
+
+                dispose();
+
+                SwingUtilities.invokeLater(()
+                        -> new ScoreboardDialog(game, manager, menu));
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                ok.setAltIcon();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                ok.setMainIcon();
+            }
         });
 
         ok.addActionListener(e -> {
-            String name = nameField.getText().trim();
-            if (name.isEmpty()) name = "Anonymous";
-
-            int iconIndex = ((SpinnerListModel) spinner.getModel())
-                    .getList().indexOf(spinner.getValue());
-
-            manager.addScore(name, iconIndex, score);
-
-            dispose();
-
-            SwingUtilities.invokeLater(() ->
-                    new ScoreboardDialog(game, manager, menu));
         });
 
         contentpane.add(ok);

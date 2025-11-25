@@ -34,17 +34,20 @@ class GameEngine extends JFrame {
     private double timePlayed;
     private boolean charging = false;
     private boolean iRunning;
-    
+
     //louis
     private mainFrame menu;
-    
-    private ScoreManager scoreManager = new ScoreManager();
-    public ScoreManager getScoreManager() { return scoreManager; }
 
+    private ScoreManager scoreManager = new ScoreManager();
+
+    public ScoreManager getScoreManager() {
+        return scoreManager;
+    }
 
     public boolean getRunning() {
         return iRunning;
     }
+
     public void removeItem(JLabel item) {
         drawpane.remove(item);
         repaint();
@@ -61,12 +64,11 @@ class GameEngine extends JFrame {
         drawpane.repaint();
     }
 
-     private void createBoss(int bossType, int difficulty) {
+    private void createBoss(int bossType, int difficulty) {
 
         if (bossType == 1) {
             bossLabel = new boss1(this, difficulty);
-        }
-        else if (bossType == 2) {
+        } else if (bossType == 2) {
             bossLabel = new boss2(this, difficulty);
         }
         // else if (bossType == 3) bossLabel = new boss3(this, difficulty);
@@ -91,7 +93,7 @@ class GameEngine extends JFrame {
         this.iRunning = true;
         this.diff = d;
         this.menu = menu;
-        
+
         contentpane = (JPanel) getContentPane();
         contentpane.setLayout(new BorderLayout());
         AddComponents(p, b, d);
@@ -106,7 +108,7 @@ class GameEngine extends JFrame {
         drawpane.setPreferredSize(new Dimension(framewidth, frameheight));
         drawpane.setIcon(backgroundImg);
         drawpane.setLayout(null);
-        
+
         playerLabel = new PlayerLabel(currentFrame, p);
         gunLabel = new GunLabel(playerLabel);
         playerLabel.setGunLabel(gunLabel);
@@ -115,7 +117,7 @@ class GameEngine extends JFrame {
         drawpane.add(playerLabel);
         Thread playerThread = new Thread(playerLabel);
         playerThread.start();
-        
+
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -124,6 +126,7 @@ class GameEngine extends JFrame {
                     playerLabel.setMove(false);
                 }
             }
+
             @Override
             public void keyPressed(KeyEvent e) {
                 int kc = e.getKeyCode();
@@ -145,10 +148,11 @@ class GameEngine extends JFrame {
             }
 
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+            }
         });
         this.addMouseListener(new MouseAdapter() {
-           /*@Override
+            /*@Override
             public void mouseClicked(MouseEvent e) {
                 int finalX = e.getX();
                 int finalY = e.getY();
@@ -161,39 +165,45 @@ class GameEngine extends JFrame {
             }*/
             @Override
             public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
+                    return;
+                    
+                }
                 charging = true;
                 gunLabel.gCharging(true);
                 playerLabel.setSpeed(5);
                 chargeStartTime = System.currentTimeMillis();
                 double chargeDuration = System.currentTimeMillis() - chargeStartTime;
             }
+
             @Override
             public void mouseReleased(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
+                    return;
+                }
+
                 if (charging) {
                     int finalX = e.getX();
                     int finalY = e.getY();
                     charging = false;
                     gunLabel.gCharging(false);
                     double chargeDuration = System.currentTimeMillis() - chargeStartTime;
-                    if(chargeDuration >= 3000)
-                    {
+                    if (chargeDuration >= 3000) {
                         playerProjLabel pLProj = new playerProjLabel(currentFrame, bossLabel, playerLabel, 2, finalX, finalY);
                         drawpane.add(pLProj);
                         Thread pLProjThread = new Thread(pLProj);
                         pLProjThread.start();
-                    }
-                    else
-                    {
+                    } else {
                         playerProjLabel pProj = new playerProjLabel(currentFrame, bossLabel, playerLabel, 1, finalX, finalY);
                         drawpane.add(pProj);
-                        Thread pProjThread = new Thread(pProj); 
+                        Thread pProjThread = new Thread(pProj);
                         pProjThread.start();
                     }
                     playerLabel.setSpeed(8);
                 }
             }
         });
-        
+
         bossHPBar = new HPBar(currentFrame, 1, bossLabel.getMaxHP());
         drawpane.add(bossHPBar);
         playerHPBar = new HPBar(currentFrame, 2, playerLabel.getMaxHP());
@@ -203,17 +213,15 @@ class GameEngine extends JFrame {
         contentpane.add(drawpane, BorderLayout.CENTER);
         validate();
     }
-    public void GameEnd(boolean win)
-    {   
+
+    public void GameEnd(boolean win) {
         iRunning = false;
         gameEndTime = System.currentTimeMillis();
         timePlayed = (gameEndTime - gameStartTime) / 1000;
-        damageTaken = playerLabel.getMaxHP() - playerLabel.getHP(); 
+        damageTaken = playerLabel.getMaxHP() - playerLabel.getHP();
         SwingUtilities.invokeLater(() -> {
-        new GameResultDialog(this, win, (int)timePlayed, damageTaken,playerLabel.getMaxHP(),playerLabel.getHP(), menu, diff);
-        
-        
-    });
+            new GameResultDialog(this, win, (int) timePlayed, damageTaken, playerLabel.getMaxHP(), playerLabel.getHP(), menu, diff);
+
+        });
     }
 }
-

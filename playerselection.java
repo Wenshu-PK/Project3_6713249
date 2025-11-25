@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
+import javax.swing.*;
 import javax.swing.JRadioButton;
 import java.awt.event.ItemEvent;
 import java.awt.Font;
@@ -111,6 +111,18 @@ public class playerselection extends SelectionDialog {
         returnButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
+                    
+                    JLabel msg2 = new JLabel("Can't click");
+                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
+                    msg2.setForeground(Color.RED);
+                    msg2.setBounds(margin, constants.frameHeight - 190 - margin, frameWidth, 180);
+                    contentpane.add(msg2);
+                    contentpane.revalidate();   // <== สำคัญ
+                    contentpane.repaint();
+                    System.out.println("click So sad ");
+                    return; // 
+                }
                 System.out.println("Clicked: return");
                 owner.setVisible(true);
                 dispose();
@@ -133,6 +145,18 @@ public class playerselection extends SelectionDialog {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
+                    JLabel msg2 = new JLabel("Can't click");
+                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
+                    msg2.setForeground(Color.RED);
+                    msg2.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 190 - margin, frameWidth, 180);
+                    contentpane.add(msg2);
+                    contentpane.revalidate();   
+                    contentpane.repaint();
+                    
+                    System.out.println("click ignored");
+                    return; // 
+                }
                 int player_selected;
                 if (jRadioButton1.isSelected()) {
                     System.out.println("Player 1 selected");

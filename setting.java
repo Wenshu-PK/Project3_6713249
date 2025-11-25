@@ -142,6 +142,18 @@ class settingDialog extends SelectionDialog {
         okButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
+                    
+                    JLabel msg2 = new JLabel("Can't click");
+                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
+                    msg2.setForeground(Color.RED);
+                    msg2.setBounds(dCenterX-75,300+10 , frameWidth/2,60/2);
+                    contentpane.add(msg2);
+                    contentpane.revalidate();   
+                    contentpane.repaint();
+                    System.out.println("click So sad ");
+                    return; // 
+                }
                 dispose(); // [Max] Closes only this popup dialog, returning to the main menu.
             }
 
