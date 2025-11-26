@@ -10,10 +10,6 @@ import java.awt.event.ItemEvent;
 import java.awt.Font;
 import java.awt.Color;
 
-/**
- *
- * @author sawan
- */
 public class playerselection extends SelectionDialog {
 
     protected JLabel char1, char2, char3;
@@ -38,12 +34,12 @@ public class playerselection extends SelectionDialog {
         jRadioButton1 = new JRadioButton("Max");
         jRadioButton2 = new JRadioButton("Est");
         jRadioButton3 = new JRadioButton("Louis");
-        
+
         Font radioFont = new Font("Monospaced", Font.BOLD, 16); // or whatever you want
         jRadioButton1.setFont(radioFont);
         jRadioButton2.setFont(radioFont);
         jRadioButton3.setFont(radioFont);
-        
+
         jRadioButton1.setForeground(Color.WHITE);
         jRadioButton2.setForeground(Color.WHITE);
         jRadioButton3.setForeground(Color.WHITE);
@@ -111,26 +107,8 @@ public class playerselection extends SelectionDialog {
         returnButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
-                    
-                    JLabel msg2 = new JLabel("Can't click");
-                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
-                    msg2.setForeground(Color.RED);
-                    msg2.setBounds(margin, constants.frameHeight - 190 - margin, frameWidth, 180);
-                    contentpane.add(msg2);
-                    contentpane.revalidate();   // <== สำคัญ
-                    contentpane.repaint();
-                    
-                    new javax.swing.Timer(2000, ev -> {
-                        contentpane.remove(msg2);
-                        contentpane.revalidate();
-                        contentpane.repaint();
-                    }) {
-                        {
-                            setRepeats(false);   // ให้ทำครั้งเดียว
-                        }
-                    }.start();
-                    
+                if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
+
                     System.out.println("click So sad ");
                     return; // 
                 }
@@ -156,25 +134,8 @@ public class playerselection extends SelectionDialog {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (SwingUtilities.isRightMouseButton(e)|| e.getButton() == MouseEvent.BUTTON2) {
-                    JLabel msg2 = new JLabel("Can't click");
-                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
-                    msg2.setForeground(Color.RED);
-                    msg2.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 190 - margin, frameWidth, 180);
-                    contentpane.add(msg2);
-                    contentpane.revalidate();   
-                    contentpane.repaint();
-                    
-                    new javax.swing.Timer(2000, ev -> {
-                        contentpane.remove(msg2);
-                        contentpane.revalidate();
-                        contentpane.repaint();
-                    }) {
-                        {
-                            setRepeats(false);   // ให้ทำครั้งเดียว
-                        }
-                    }.start();
-                    
+                if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
+
                     System.out.println("click ignored");
                     return; // 
                 }
