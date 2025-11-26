@@ -42,6 +42,7 @@ public class SelectionDialog extends JDialog {
         setSize(frameWidth, frameHeight);
         setLocationRelativeTo(null);
         setResizable(false);
+        requestFocus();
 
         contentpane = new JLabel();
         contentpane.setLayout(null);
