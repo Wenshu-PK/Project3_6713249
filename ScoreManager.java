@@ -13,17 +13,6 @@ public class ScoreManager {
         loadFromFile();
     }
     
-    /*public void addScore(String name, int iconIndex, int score) {
-        entries.add(new ScoreEntry(name, iconIndex, score));
-        entries.sort((a, b) -> b.getScore() - a.getScore());
-
-        if (entries.size() > 5)
-            entries.remove(entries.size() - 1);
-    }
-
-    public List<ScoreEntry> getTopScores() {
-        return Collections.unmodifiableList(entries);
-    }*/
     
     public synchronized void addScore(String name, int iconIndex, int score) {
         entries.add(new ScoreEntry(name, iconIndex, score));
