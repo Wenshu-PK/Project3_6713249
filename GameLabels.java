@@ -269,6 +269,7 @@ class playerProjLabel extends JLabel implements Runnable
     private int curX, curY;
     private int finalX, finalY;
     private int speed;
+    private int running;
     private double cos, sin;
     private double totalX, totalY;
     
@@ -284,6 +285,7 @@ class playerProjLabel extends JLabel implements Runnable
         int py = pl.getCurY();
         int pw = pl.getWidth();
         int ph = pl.getHeight();
+        running = 1;
         if (pl.getDirection() == 0)  // LEFT
         {
             curX = px - 40;            // small offset from left edge
@@ -328,21 +330,25 @@ class playerProjLabel extends JLabel implements Runnable
 
     @Override
     public void run() {
-        while(true && parentFrame.getRunning())
+        while(running == 1 && parentFrame.getRunning())
         {
             updateLocation();
+            detectHit();
+        }
+    }
+    public synchronized void detectHit()
+    {
             if(this.getBounds().intersects(bossLabel.getBounds()))
             {
                 bossLabel.takeDamage(damage);
                 parentFrame.removeItem(this);
-                break;
+                running = 0;
             }
             if(curY < 0 || curY > parentFrame.getHeight() || curX < 0 || curX > parentFrame.getWidth())
             {
                 parentFrame.removeItem(this);
-                break;
+                running = 0;
             }
-        }
     }
     public void updateLocation()
     {
@@ -426,4 +432,5 @@ class GunLabel extends JLabel
     }
 
 }
+
 
