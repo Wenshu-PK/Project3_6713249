@@ -36,11 +36,8 @@ public abstract class boss extends JLabel implements Runnable {
     }
 
     // ---------- sprite helper ----------
-    // subclasses call this once after loading resized images
-    protected void setSprites(MyImageIcon normal,
-                              MyImageIcon attack,
-                              MyImageIcon hurt,
-                              MyImageIcon dead) {
+    // subclasses call once after loading images
+    protected void setSprites(MyImageIcon normal, MyImageIcon attack, MyImageIcon hurt, MyImageIcon dead) {
         this.imgNormal = normal;
         this.imgAttack = attack;
         this.imgHurt   = hurt;
