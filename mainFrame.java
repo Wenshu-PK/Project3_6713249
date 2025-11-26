@@ -17,7 +17,6 @@ public class mainFrame extends JFrame {
     private final int SPACING_X = 100;
     private final int SPACING_Y = 30;
     private final int ROW1_Y = 380;
-   
 
     // [Max] Added sound management variables to handle background music and volume state globally.
     private MySoundEffect currentThemeSound;
@@ -41,7 +40,7 @@ public class mainFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);
-        this.requestFocus();
+        requestFocus();
 
         setContentPane(contentpane = new JLabel());
 
@@ -55,29 +54,7 @@ public class mainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
-                    JLabel msg3 = new JLabel("Can't click", SwingConstants.CENTER);
-                    msg3.setFont(new Font("Monospaced", Font.BOLD, 20));
-                    msg3.setForeground(Color.RED);
-                    int msgWidth = BUTTON_WIDTH;
-                    int msgHeight = 30;
-                    int msgX = centerX;
-                    int msgY = row1Y - msgHeight - 5;
-                    msg3.setBounds(msgX, msgY, msgWidth, msgHeight);
-                    contentpane.add(msg3);
-                    contentpane.revalidate();
-                    contentpane.repaint();
-                    
-                    
-                    new javax.swing.Timer(2000, ev -> {
-                        contentpane.remove(msg3);
-                        contentpane.revalidate();
-                        contentpane.repaint();
-                    }) {
-                        {
-                            setRepeats(false);   // ให้ทำครั้งเดียว
-                        }
-                    }.start();
-                    
+
                     System.out.println("click ignored");
                     return;
                 }
@@ -85,7 +62,6 @@ public class mainFrame extends JFrame {
                 setVisible(false);
 
                 new playerselection(constants.PLAYER_BG, "Player Selction", menuframe);
-               
 
             }
 
@@ -110,29 +86,7 @@ public class mainFrame extends JFrame {
             public void mouseClicked(MouseEvent e) {
 
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
-                    JLabel msg3 = new JLabel("Can't click", SwingConstants.CENTER);
-                    msg3.setFont(new Font("Monospaced", Font.BOLD, 20));
-                    msg3.setForeground(Color.RED);
-                    int msgWidth = BUTTON_WIDTH;
-                    int msgHeight = 30;
-                    int msgX = leftX;
-                    int msgY = row2Y - msgHeight - 5;
-                    msg3.setBounds(msgX, msgY, msgWidth, msgHeight);
-                    contentpane.add(msg3);
-                    contentpane.revalidate();
-                    contentpane.repaint();
-                  
-                    
-                    new javax.swing.Timer(2000, ev -> {
-                        contentpane.remove(msg3);
-                        contentpane.revalidate();
-                        contentpane.repaint();
-                    }) {
-                        {
-                            setRepeats(false);   // ให้ทำครั้งเดียว
-                        }
-                    }.start();
-                    
+
                     System.out.println("click ignored");
                     return;
                 }
@@ -142,7 +96,7 @@ public class mainFrame extends JFrame {
                 // setVisible(false);  <-- [Max] Commented out or removed.
                 // [Max] Added instantiation of settingDialog as a modal popup on top of the menu.
                 new settingDialog(constants.SETTING_BG, "Settings", menuframe);
-                
+
             }
 
             @Override
@@ -164,29 +118,7 @@ public class mainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
-                    JLabel msg3 = new JLabel("Can't click", SwingConstants.CENTER);
-                    msg3.setFont(new Font("Monospaced", Font.BOLD, 20));
-                    msg3.setForeground(Color.RED);
-                    int msgWidth = BUTTON_WIDTH;
-                    int msgHeight = 30;
-                    int msgX = rightX;
-                    int msgY = row3Y - msgHeight - 5;
-                    msg3.setBounds(msgX, msgY, msgWidth, msgHeight);
-                    contentpane.add(msg3);
-                    contentpane.revalidate();
-                    contentpane.repaint();
-                   
-                    
-                    new javax.swing.Timer(2000, ev -> {
-                        contentpane.remove(msg3);
-                        contentpane.revalidate();
-                        contentpane.repaint();
-                    }) {
-                        {
-                            setRepeats(false);   // ให้ทำครั้งเดียว
-                        }
-                    }.start();
-                    
+
                     System.out.println("click ignored");
                     return;
                 }
@@ -212,36 +144,13 @@ public class mainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
-                    JLabel msg3 = new JLabel("Can't click", SwingConstants.CENTER);
-                    msg3.setFont(new Font("Monospaced", Font.BOLD, 20));
-                    msg3.setForeground(Color.RED);
-                    int msgWidth = BUTTON_WIDTH;
-                    int msgHeight = 30;
-                    int msgX = leftX;
-                    int msgY = row3Y - msgHeight - 5;
-                    msg3.setBounds(msgX, msgY, msgWidth, msgHeight);
-                    contentpane.add(msg3);
-                    contentpane.revalidate();
-                    contentpane.repaint();
-                    
-                    
-                    new javax.swing.Timer(2000, ev -> {
-                        contentpane.remove(msg3);
-                        contentpane.revalidate();
-                        contentpane.repaint();
-                    }) {
-                        {
-                            setRepeats(false);   // ให้ทำครั้งเดียว
-                        }
-                    }.start();
-                    
+
                     System.out.println("click ignored");
                     return;
                 }
                 System.out.println("Clicked: credit");
                 setVisible(false);
                 new creditDialog(constants.CREDIT, "Credit", menuframe);
-              
 
             }
 
@@ -262,34 +171,13 @@ public class mainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
-                    JLabel msg3 = new JLabel("Can't click", SwingConstants.CENTER);
-                    msg3.setFont(new Font("Monospaced", Font.BOLD, 20));
-                    msg3.setForeground(Color.RED);
-                    int msgWidth = BUTTON_WIDTH;
-                    int msgHeight = 30;
-                    int msgX = rightX;
-                    int msgY = row2Y - msgHeight - 5;
-                    msg3.setBounds(msgX, msgY, msgWidth, msgHeight);
-                    contentpane.add(msg3);
-                    contentpane.revalidate();
-                    contentpane.repaint();
-                    new javax.swing.Timer(2000, ev -> {
-                        contentpane.remove(msg3);
-                        contentpane.revalidate();
-                        contentpane.repaint();
-                    }) {
-                        {
-                            setRepeats(false);   // ให้ทำครั้งเดียว
-                        }
-                    }.start();
-                    
+
                     System.out.println("click ignored");
                     return;
                 }
                 System.out.println("Clicked: how to play");
                 setVisible(false);
                 new howtoplayDialog(constants.HOWTOPLAT_BG, "How to play", menuframe);
-                
 
             }
 
@@ -314,9 +202,7 @@ public class mainFrame extends JFrame {
         playTheme(constants.SONG_COSMIC);
 
     }
-    
 
-    
     // [Max] Added method to switch background music dynamically (called from SettingDialog).
     public void playTheme(String filePath) {
         if (currentThemeSound != null) {
@@ -345,5 +231,3 @@ public class mainFrame extends JFrame {
 
     // ... (Other parts of mainFrame) ..
 }
-
-
