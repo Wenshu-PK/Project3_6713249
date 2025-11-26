@@ -28,18 +28,7 @@ public class NameAndIconDialog extends SelectionDialog {
         setModal(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        // Handle closing
-        /*for (WindowListener wl : getWindowListeners()) {
-            removeWindowListener(wl);
-        }
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                if (parentDialog != null) parentDialog.dispose();
-                if (game != null) game.dispose();
-                menu.setVisible(true);
-            }
-        });*/
+        
         // ==========================================================
         // PREVIEW ICON
         // ==========================================================
@@ -157,3 +146,4 @@ public class NameAndIconDialog extends SelectionDialog {
         setVisible(true);
     }
 }
+
