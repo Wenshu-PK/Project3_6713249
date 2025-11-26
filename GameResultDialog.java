@@ -22,19 +22,7 @@ public class GameResultDialog extends SelectionDialog {
         setModal(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        // Window Close
-        /*for (WindowListener wl : getWindowListeners()) {
-            removeWindowListener(wl);
-        }
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                if (game != null) {
-                    game.dispose();
-                }
-                menu.setVisible(true);
-            }
-        });*/
+        
         // ----------------------------------------------------
         // contentpane ( SelectionDialog)
         // ----------------------------------------------------
@@ -137,3 +125,4 @@ public class GameResultDialog extends SelectionDialog {
         setVisible(true);
     }
 }
+
