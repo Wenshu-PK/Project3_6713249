@@ -21,7 +21,7 @@ public class howtoplayDialog extends SelectionDialog {
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
 
                     System.out.println("click ignored");
-                    return; // 
+                    return; 
                 }
                 System.out.println("Clicked: ok");
                 owner.setVisible(true);
@@ -47,3 +47,4 @@ public class howtoplayDialog extends SelectionDialog {
 
     }
 }
+
