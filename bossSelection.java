@@ -101,27 +101,9 @@ public class bossSelection extends SelectionDialog {
 
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
 
-                    JLabel msg2 = new JLabel("Can't click");
-                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
-                    msg2.setForeground(Color.RED);
-                    msg2.setBounds(margin, constants.frameHeight - 190 - margin, frameWidth, 180);
-                    contentpane.add(msg2);
-                    contentpane.revalidate();   // <== สำคัญ
-                    contentpane.repaint();
-                    
-                    new javax.swing.Timer(2000, ev -> {
-                        contentpane.remove(msg2);
-                        contentpane.revalidate();
-                        contentpane.repaint();
-                    }) {
-                        {
-                            setRepeats(false);   // ให้ทำครั้งเดียว
-                        }
-                    }.start();
-                    
                     System.out.println("click So sad ");
                     return; // 
-                    
+
                 }
                 System.out.println("Clicked: return");
                 prevois.setVisible(true);
@@ -153,23 +135,6 @@ public class bossSelection extends SelectionDialog {
             public void mouseClicked(MouseEvent e) {
                 int boss_selected;
                 if (SwingUtilities.isRightMouseButton(e) || e.getButton() == MouseEvent.BUTTON2) {
-                    JLabel msg2 = new JLabel("Can't click");
-                    msg2.setFont(new Font("Monospaced", Font.BOLD, 20));
-                    msg2.setForeground(Color.RED);
-                    msg2.setBounds(constants.frameWidth - 200 - margin, constants.frameHeight - 190 - margin, frameWidth, 180);
-                    contentpane.add(msg2);
-                    contentpane.revalidate();   // <== สำคัญ
-                    contentpane.repaint();
-
-                    new javax.swing.Timer(2000, ev -> {
-                        contentpane.remove(msg2);
-                        contentpane.revalidate();
-                        contentpane.repaint();
-                    }) {
-                        {
-                            setRepeats(false);   // ให้ทำครั้งเดียว
-                        }
-                    }.start();
 
                     System.out.println("click ignored");
                     return; // 
