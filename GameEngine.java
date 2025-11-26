@@ -224,4 +224,3 @@ class GameEngine extends JFrame {
         });
     }
 }
-
